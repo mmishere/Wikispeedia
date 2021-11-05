@@ -14,14 +14,18 @@ The Wikipedia articles will be represented as a directed graph, where each node 
 November 1st - 5th
 * Complete and sign Team Contract.
 * Complete Project Proposal.
+
 November 8th - 12th
 * Download the data.
 * Process it as described above (remove non-English articles, process into titles and links).
+
 November 15th - 19th
 * Set up the graph as a series of nodes and edges (need to work on how to do this effectively).
+
 November 22th - December 3rd
 * Write BFS collaboratively, and set up anything else needed for BFS.
 * Begin final report and presentation.
+
 December 6th - 9th
 * Work on displaying the output of the BFS algorithm as JSON or a similar format.
 * Finish up the report and presentation collaboratively.
@@ -29,5 +33,5 @@ December 6th - 9th
 # Signatures
 * Maaheen Maajed (mmaajed2)
 * Saurav Chittal (chittal3)
-* 
+* Emi Brown (ecbrown2)
 * 
