@@ -26,8 +26,8 @@ December 6th - 9th
 * Work on displaying the output of the BFS algorithm as JSON or a similar format.
 * Finish up the report and presentation collaboratively.
 
-Signed
-* Maaheen Maajed (mmaajed)
+# Signatures
+* Maaheen Maajed (mmaajed2)
 * Saurav Chittal (chittal3)
 * 
 * 
