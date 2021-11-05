@@ -20,8 +20,8 @@ Each group member will work between two and six hours per week on the project. I
 *Conflict Resolution*
 Conflicts will be discussed in private between the people having conflicts. If it involves the whole group, we'll discuss them there. If this doesn't work out, we'll escalate to the course staff.
 
-Signed:
+# Signatures
 * Maaheen Maajed (mmaajed2)
-* Saurav Chittal (chittal3)
+* 
 * 
 * 
