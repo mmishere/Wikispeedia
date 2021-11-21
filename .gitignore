@@ -35,6 +35,12 @@
 wpcd/
 links.tsv
 
+# Parsing output
+parsing/nodes.txt
+parsing/edges.txt
+parsing2/nodes.txt
+parsing2/edges.txt
+
 # Jupyter checkpoints
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
