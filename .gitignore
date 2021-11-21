@@ -40,6 +40,10 @@ parsing/nodes.txt
 parsing/edges.txt
 parsing2/nodes.txt
 parsing2/edges.txt
+preprocessing/nodes.txt
+preprocessing/edges.txt
+preprocessing_old/nodes.txt
+preprocessing_old/edges.txt
 
 # Jupyter checkpoints
 .ipynb_checkpoints
