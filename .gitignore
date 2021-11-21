@@ -33,6 +33,7 @@
 
 # Original dataset
 wpcd/
+links.tsv
 
 # Jupyter checkpoints
 .ipynb_checkpoints
