@@ -2,6 +2,9 @@
 
 #include <iostream>
 #include <vector>
+#include <string>
+#include <fstream>
+#include <pair>
 
 class Graph {
 
@@ -37,7 +40,7 @@ class Graph {
 
 	public:
 		Graph(int num_vertices);
-		Graph();
+		Graph(std::string file1, std::string file2);
 
 		void add_edge(int source, int destination);
 		void remove_edge(int source, int destination);
@@ -50,5 +53,7 @@ class Graph {
 	private:
 		std::vector<AdjacencyList> adjacency_list;
 		int num_vertices;
+
+		std::vector<std::pair<int, int>> parserHelper(std::string file1, std::string file2);
 };
 		
