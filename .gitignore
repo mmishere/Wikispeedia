@@ -50,3 +50,5 @@ preprocessing_old/edges.txt
 # Jupyter checkpoints
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
+
+.vscode/
