@@ -88,17 +88,17 @@ class Graph {
 			return NULL;
 		}
 
-		// // returns null if not found
-		// LinkedList* find(string to_find) {
-		// 	LinkedList* current = head;
-		// 	while (current != NULL) {
-		// 		if (current->value == to_find) {
-		// 			return current;
-		// 		}
-		// 		current = current->next;
-		// 	}
-		// 	return NULL;
-		// }
+		// returns null if not found
+		LinkedList* find(string to_find) {
+			LinkedList* current = head;
+			while (current != NULL) {
+				if (current->value == to_find) {
+					return current;
+				}
+				current = current->next;
+			}
+			return NULL;
+		}
 
 		void remove(string to_remove) {
 			if (head == NULL) {
