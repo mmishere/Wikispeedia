@@ -4,9 +4,12 @@
 #include <vector>
 #include <string>
 #include <fstream>
-#include <pair>
+#include <utility> // for pair
 
 using std::string;
+
+// to compile:
+// clang++ graph.cpp -std=c++1y -stdlib=libc++ -O0 -pedantic -Wall -Werror -Wfatal-errors -Wextra -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -MMD -MP -g -c
 
 class Graph {
 
@@ -45,7 +48,7 @@ class Graph {
 				LinkedList* temp = head;
 				head = head->next;
 				delete temp;
-				return;
+				return true;
 			}
 
 			LinkedList* prev = head;
@@ -56,10 +59,11 @@ class Graph {
 					// remove this node
 					prev->next = current->next;
 					delete current;
-					return;
+					return true;
 				}
 				prev = prev->next;
 			}
+			return false;
 		}
 
 		void insert_at_end(string to_insert) {
@@ -73,7 +77,7 @@ class Graph {
 			while (current->next != NULL) {
 				current = current->next;
 			}
-			current->next = LinkedList(to_insert);
+			current->next = new LinkedList(to_insert);
 		}
 
 		// returns null if not found
@@ -137,7 +141,7 @@ class Graph {
 		std::vector<AdjacencyList> adjacency_list;
 		int num_vertices;
 
-		std::vector<std::pair<int, int>> parserHelper(std::string file1, std::string file2);
+		std::vector<std::pair<string, string>> parserHelper(std::string file1, std::string file2);
 		void insert_into_adjlist(unsigned list_idx, string to_insert);
 		unsigned find_adjlist_idx(string to_find); // if this doesn't find it, it will return adjlist.size
 
