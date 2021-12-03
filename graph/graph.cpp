@@ -2,10 +2,12 @@
 
 Graph::Graph(int num_vertices): num_vertices(num_vertices) { }
 
-Graph::Graph(std::string file1, std::string file2) {
-    std::vector<std::pair<string, string>> edges = parserHelper(file1, file2);
-
-    for (auto edge : edges) {
+Graph::Graph(std::vector<string> vertices, std::vector<std::pair<string>> edges) {
+    // add vertexes
+    num_vertices = vertices.size();
+    
+    // add edges
+    for (std::pair<string> edge : edges) {
         add_edge(edge.first, edge.second);
     }
 }
@@ -122,4 +124,8 @@ Graph::AdjacencyList Graph::adjacent(string vertex) {
     }
     // else, return empty adj list
     return AdjacencyList();
+}
+
+int Graph::get_num_vertices() {
+    return num_vertices;
 }

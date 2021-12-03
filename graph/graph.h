@@ -127,7 +127,13 @@ class Graph {
 
 	public:
 		Graph(int num_vertices);
-		Graph(std::string file1, std::string file2);
+		/**
+		* Constructs a Graph from a list of vertices and edges.
+		*
+		* @param vertices The list of vertices of the graph.
+		* @param edges The list of edges (connections) for the graph.
+		*/
+		Graph(std::vector<string> vertices, std::vector<std::pair<string>> edges);
 
 		void add_edge(string source, string destination);
 		void remove_edge(string source, string destination);
@@ -137,11 +143,13 @@ class Graph {
 
 		AdjacencyList adjacent(string vertex);
 
+		/** @return The number of vertices in the graph. */
+		int get_num_vertices();
+
 	private:
 		std::vector<AdjacencyList> adjacency_list;
 		int num_vertices;
 
-		std::vector<std::pair<string, string>> parserHelper(std::string file1, std::string file2);
 		void insert_into_adjlist(unsigned list_idx, string to_insert);
 		unsigned find_adjlist_idx(string to_find); // if this doesn't find it, it will return adjlist.size
 
