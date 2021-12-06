@@ -136,10 +136,10 @@ class Graph {
 		bool isAdjacent(string source, string destination);
 
 		AdjacencyList adjacent(string vertex);
-		int num_vertices;
 
 	private:
 		std::vector<AdjacencyList> adjacency_list;
+		int num_vertices;
 
 		std::vector<std::pair<string, string>> parserHelper(std::string file1, std::string file2);
 		void insert_into_adjlist(unsigned list_idx, string to_insert);
