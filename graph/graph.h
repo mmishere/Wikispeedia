@@ -133,7 +133,7 @@ class Graph {
 		* @param vertices The list of vertices of the graph.
 		* @param edges The list of edges (connections) for the graph.
 		*/
-		Graph(std::vector<string> vertices, std::vector<std::pair<string>> edges);
+		Graph(std::vector<string> vertices, std::vector<std::pair<string, string>> edges);
 
 		void add_edge(string source, string destination);
 		void remove_edge(string source, string destination);

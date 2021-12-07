@@ -2,12 +2,12 @@
 
 Graph::Graph(int num_vertices): num_vertices(num_vertices) { }
 
-Graph::Graph(std::vector<string> vertices, std::vector<std::pair<string>> edges) {
+Graph::Graph(std::vector<string> vertices, std::vector<std::pair<string, string>> edges) {
     // add vertexes
     num_vertices = vertices.size();
     
     // add edges
-    for (std::pair<string> edge : edges) {
+    for (std::pair<string, string> edge : edges) {
         add_edge(edge.first, edge.second);
     }
 }
