@@ -9,8 +9,8 @@ BFS::BFS(Graph * graph) {
 std::vector<string> BFS::findPath(string & start, string & end) {
     std::queue<string> queue;
     int num_vertices = graph_->get_num_vertices();
-    std::map<string, int> distances;
-    std::map<string, int> predecessors;
+    std::unordered_map<string, int> distances;
+    std::unordered_map<string, int> predecessors;
     string currentVtx;
 
     //starting point
