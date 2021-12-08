@@ -4,8 +4,12 @@ TEST = test
 
 # Add all object files needed for compiling:
 EXE_OBJ = main.o
-OBJS = main.o 
+OBJS = main.o graph.o util/util.o
 # TODO: add any new object files to OBJS list 
+# --- HOW TO: ---
+# 1. compile using the clang++ command
+# 2. move .o files into the .objs folder
+# 3. add the .o file name to list
 
 # Generated files
 # TODO: uncomment this and change file names if we generate any extra files
