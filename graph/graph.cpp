@@ -115,15 +115,24 @@ bool Graph::isAdjacent(string source, string destination) {
 }
 
 
-Graph::AdjacencyList Graph::adjacent(string vertex) {
-    // search for it; if found, return
+vector<string> Graph::adjacent(string vertex) {
+    vector<string> toReturn;
+    // search for it; if found, add all to toReturn
     for (unsigned i = 0; i < adjacency_list.size(); i++) {
         if (adjacency_list[i].head->value == vertex) {
-            return adjacency_list[i];
+            // search in here
+            LinkedListNode* current = adjacency_list[i].head;
+            current = current->next;
+            // now iterate through until null and add to toReturn
+            while (current != nullptr) {
+                toReturn.push_back(current->value);
+                current = current->next;
+            }
+            break;
         }
     }
-    // else, return empty adj list
-    return AdjacencyList();
+    // else, return empty vec
+    return toReturn;
 }
 
 int Graph::get_num_vertices() {
