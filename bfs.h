@@ -3,7 +3,7 @@
 #include <queue>
 #include <vector>
 #include <unordered_map>
-#include "../graph/graph.h"
+#include "graph.h"
 
 class BFS {
 	public:
