@@ -50,7 +50,8 @@ std::vector<string> BFS::findPath(string & start, string & end) {
     output.push_back(end);
     currentVtx = end;
     while (predecessors.find(currentVtx) != predecessors.end()) {
-        output.push_back(predecessors.find(currentVtx));
-        currentVtx = predecessors.find(currentVtx);
+        output.push_back(predecessors.at(currentVtx));
+        currentVtx = predecessors.at(currentVtx);
     }
+    return output;
 }
