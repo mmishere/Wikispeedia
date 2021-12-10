@@ -3,7 +3,7 @@
 #include <iostream> 
 #include <fstream>
 #include <string>
-#include "../graph/graph.h"
+#include "../graph.h"
 
 using std::string;
 

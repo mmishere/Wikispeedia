@@ -23,6 +23,10 @@ void Graph::print_graph() {
 }
 
 
+const std::vector<Graph::AdjacencyList>& Graph::getAdjacencyList() const {
+    return adjacency_list;
+}
+
 
 /*
 iterate through adajency_list and look at heads
@@ -137,4 +141,42 @@ vector<string> Graph::adjacent(string vertex) {
 
 int Graph::get_num_vertices() {
     return num_vertices;
+}
+
+
+
+// TEMPORARY NOT COMPLETE
+
+Graph::AdjacencyList Graph::getListByIdx(int idx) {
+ 
+    return adjacency_list.at(0); // TMEPORARY
+}
+int Graph::getIdxByNode(string node) {
+    return -1;
+}
+
+
+Graph* Graph:: getTranspose() {
+    Graph* toReturn = new Graph(num_vertices);
+
+    // add all nodes to adj list in the same order; empty for now
+    for (AdjacencyList& a : adjacency_list) {
+        LinkedListNode* node = new LinkedListNode(a.head->value); // COULD CAUSE MEMORY LEAKS
+        AdjacencyList toPush(node);
+        toReturn->adjacency_list.push_back(toPush);
+    }
+
+    for (unsigned i = 0; i < adjacency_list.size(); i++) {
+        string currentString = adjacency_list[i].head->value; // this has to exist so if it segfaults that's a good thing
+        // iterate through the current vertex adjlist, adding inverses
+        AdjacencyList& currAdjList = adjacency_list.at(i);
+        LinkedListNode* currNode = currAdjList.head;
+        while (currNode != NULL) {
+            int vecIdxToInsertInto = getIdxByNode(currNode->value);
+            toReturn->adjacency_list.at(vecIdxToInsertInto).insert_at_end(currentString);
+            currNode = currNode->next;
+        }
+    }
+
+    return toReturn;
 }

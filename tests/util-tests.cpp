@@ -1,8 +1,8 @@
-#include "../catch/catch.hpp"
+#include "../cs225/catch/catch.hpp"
 #include <string>
 #include <fstream>
 #include <iostream>
-#include "../graph/graph.h"
+#include "../graph.h"
 #include "../util/util.h"
 
 using namespace utils;
