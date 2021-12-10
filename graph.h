@@ -11,15 +11,61 @@ using std::vector;
 
 class Graph {
 
-	public:
+	struct LinkedListNode {
+		string value;
+		LinkedListNode *next;
 
-		struct LinkedListNode {
-			string value;
-			LinkedListNode *next;
+		LinkedListNode(string value) {
+			this->value = value;
+			this->next = nullptr;
+		}
 
-			LinkedListNode(string value) {
-				this->value = value;
-				this->next = nullptr;
+		LinkedListNode(string value, LinkedListNode *next) {
+			this->value = value;
+			this->next = next;
+		}
+	};
+
+public:
+	struct AdjacencyList {
+		LinkedListNode *head;
+		int num_edges;
+
+		AdjacencyList() {
+			this->head = nullptr;
+			this->num_edges = 0;
+		}
+
+		AdjacencyList(LinkedListNode *head) {
+			this->head = head;
+			this->num_edges = 0;
+		}
+
+		bool remove_node(string to_remove) {
+			if (head->value == to_remove) {
+				// special case
+				LinkedListNode* temp = head;
+				head = head->next;
+				delete temp;
+				return true;
+			}
+
+			LinkedListNode* prev = head;
+			LinkedListNode* current = head;
+			while (current != NULL) {
+				current = current->next;
+				// In case nothing matches the value, current will become NULL
+				// which will cause a segfault on line 65, hence this if check
+				if (current == NULL) {
+					return false;
+				}
+				if (current->value == to_remove) {
+					// remove this node
+					prev->next = current->next;
+					delete current;
+					return true;
+				}
+				prev = prev->next;
 			}
 
 			LinkedListNode(string value, LinkedListNode *next) {
@@ -36,19 +82,19 @@ class Graph {
 				this->head = nullptr;
 				this->num_edges = 0;
 			}
+			current->next = new LinkedListNode(to_insert);
+		}
 
-			AdjacencyList(LinkedListNode *head) {
-				this->head = head;
-				this->num_edges = 0;
-			}
-
-			bool remove_node(string to_remove) {
-				if (head->value == to_remove) {
-					// special case
-					LinkedListNode* temp = head;
-					head = head->next;
-					delete temp;
-					return true;
+		// returns null if not found
+		LinkedListNode* find_prev(string to_find) { 
+			LinkedListNode* current = head;
+			// Here, the check was only checking if current is NULL
+			// which was screwing up the inner if loop in case the string
+			// was not found
+			// Changed current to current->next to fix this on line 97(the line below)
+			while (current->next != NULL) {
+				if (current->next->value == to_find) {
+					return current;
 				}
 
 				LinkedListNode* prev = head;
