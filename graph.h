@@ -29,6 +29,7 @@ class Graph {
 		}
 	};
 
+public:
 	struct AdjacencyList {
 		LinkedListNode *head;
 		int num_edges;
@@ -56,6 +57,11 @@ class Graph {
 			LinkedListNode* current = head;
 			while (current != NULL) {
 				current = current->next;
+				// In case nothing matches the value, current will become NULL
+				// which will cause a segfault on line 65, hence this if check
+				if (current == NULL) {
+					return false;
+				}
 				if (current->value == to_remove) {
 					// remove this node
 					prev->next = current->next;
@@ -84,7 +90,11 @@ class Graph {
 		// returns null if not found
 		LinkedListNode* find_prev(string to_find) { 
 			LinkedListNode* current = head;
-			while (current != NULL) {
+			// Here, the check was only checking if current is NULL
+			// which was screwing up the inner if loop in case the string
+			// was not found
+			// Changed current to current->next to fix this on line 97(the line below)
+			while (current->next != NULL) {
 				if (current->next->value == to_find) {
 					return current;
 				}
