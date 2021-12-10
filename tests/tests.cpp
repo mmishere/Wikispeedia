@@ -2,6 +2,8 @@
 
 #include "../graph.h"
 
+#include "../bfs.h"
+
 #include <sstream>
 
 using std::stringstream;
@@ -170,5 +172,61 @@ TEST_CASE("Now Checking the Graph Class") {
             ss << *it << " ";
         }
         REQUIRE(ss.str() == "");
+    }
+}
+
+TEST_CASE("Now Checking the BFS Class") {
+    // Here is the graph we will be using
+    // a -> b -> c
+    //  \\  ^ \\
+    //   \\ |  \\
+    //      d <--e
+    // The best I can do, but b points to both c and e and a points to both b and d
+    // Graph is made the have a cycle
+    std::vector<std::string> vertices = {"a", "b", "c", "d", "e"};
+    std::vector<std::pair<std::string, std::string>> edges = {
+        {"a", "b"},
+        {"b", "c"},
+        {"b", "e"},
+        {"d", "b"},
+        {"a", "d"},
+        {"e", "d"}
+    };
+
+    SECTION("Testing findPath") {
+        Graph* g = new Graph(vertices, edges);
+        BFS bfs(g);
+
+        // Edge case: start node is not in the graph
+        auto path = bfs.findPath("f", "c");
+        REQUIRE(path.size() == 0);
+
+        // Edge case: end node is not in the graph
+        path = bfs.findPath("a", "f");
+        REQUIRE(path.size() == 0);
+
+        // Edge case: start and end node are the same
+        path = bfs.findPath("a", "a");
+        REQUIRE(path.size() == 1);
+        REQUIRE(path[0] == "a");
+
+        // Normal case: start and end node are different, straight line
+        // Also ensures that the shortest path is found
+        path = bfs.findPath("a", "c");
+        stringstream ss;
+        for (auto it = path.begin(); it != path.end(); ++it) {
+            ss << *it << " ";
+        }
+        REQUIRE(ss.str() == "a b c ");
+
+        // Normal case: start and end node are different, with a cycle
+        path = bfs.findPath("a", "e");  
+        ss.str("");
+        for (auto it = path.begin(); it != path.end(); ++it) {
+            ss << *it << " ";
+        }
+        REQUIRE(ss.str() == "a b e ");
+
+        delete g;
     }
 }

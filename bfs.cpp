@@ -6,7 +6,8 @@ BFS::BFS(Graph * graph) {
     graph_ = graph;
 }
 
-std::vector<string> BFS::findPath(string & start, string & end) {
+// Making them const so that compiler stops throwing errors
+std::vector<string> BFS::findPath(const string & start, const string & end) {
     //edge case, empty strings
     if (start.empty() || end.empty()) {
         return std::vector<string>(); //empty vector
@@ -22,13 +23,13 @@ std::vector<string> BFS::findPath(string & start, string & end) {
     
     std::queue<string> queue;
     int num_vertices = graph_->get_num_vertices();
-    std::unordered_map<string, int> distances;
+    std::set<string> visited;
     std::unordered_map<string, string> predecessors;
     string currentVtx;
 
     //starting point: distance is 0, no predecessor
     queue.push(start);
-    distances[start] = 0;
+    //distances[start] = 0;
 
     bool found = false;
 
@@ -43,14 +44,14 @@ std::vector<string> BFS::findPath(string & start, string & end) {
         currentVtx = queue.front();
         queue.pop();
 
-        //find incident edges, push into queue if not visited
         std::vector<string> adjacent = graph_->adjacent(currentVtx);
         for (auto & vtx : adjacent) {
-            if (distances.find(vtx) != distances.end()) { //if not already found
+            if (visited.find(vtx) == visited.end()) { //if not already found
                 queue.push(vtx);
                 predecessors[vtx] = currentVtx;
             }
         }
+        visited.insert(currentVtx);
     }
     
     //return empty vector if not found
@@ -65,5 +66,6 @@ std::vector<string> BFS::findPath(string & start, string & end) {
         output.push_back(predecessors.at(currentVtx));
         currentVtx = predecessors.at(currentVtx);
     }
+    std::reverse(output.begin(), output.end());
     return output;
 }
