@@ -1,6 +1,7 @@
 # compiled executables
 main
 wikispeedia
+test
 
 # Prerequisites
 *.d

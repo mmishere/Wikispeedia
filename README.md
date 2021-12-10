@@ -21,7 +21,7 @@ COMING SOON: See our [Results]()!
 - `strongly_connected.h/.cpp` contains our algorithm to check whether or not the graph is strongly connected
 
 ## Data
-- `preprocessing` subfolder contains the script we use to clean and format our data before we use it
+- `preprocessing` subfolder contains the script that cleans and format our data before we use it
 - `data` subfolder contains the actual Wikipedia page data (a vertex file of article names and an edge file of line number connections)
 - `data_sample` subfolder contains a small set of testing data in the same format as the Wikipedia data we are using
 
