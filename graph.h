@@ -11,6 +11,7 @@ using std::vector;
 
 class Graph {
 
+public:
 	struct LinkedListNode {
 		string value;
 		LinkedListNode *next;
@@ -67,22 +68,7 @@ public:
 				}
 				prev = prev->next;
 			}
-
-			LinkedListNode(string value, LinkedListNode *next) {
-				this->value = value;
-				this->next = next;
-			}
-		};
-
-		struct AdjacencyList {
-			LinkedListNode *head;
-			int num_edges;
-
-			AdjacencyList() {
-				this->head = nullptr;
-				this->num_edges = 0;
-			}
-			current->next = new LinkedListNode(to_insert);
+			return false;
 		}
 
 		// returns null if not found
@@ -96,80 +82,57 @@ public:
 				if (current->next->value == to_find) {
 					return current;
 				}
+				current = current->next;
+			}
+			return NULL;
+		}
 
-				LinkedListNode* prev = head;
-				LinkedListNode* current = head;
-				while (current != NULL) {
-					current = current->next;
-					if (current->value == to_remove) {
-						// remove this node
-						prev->next = current->next;
-						delete current;
-						return true;
-					}
-					prev = prev->next;
-				}
-				return false;
+		void insert_at_end(string to_insert) {
+			if (head == NULL) {
+				head = new LinkedListNode(to_insert);
+				return;
 			}
 
-			void insert_at_end(string to_insert) {
-				if (head == NULL) {
-					head = new LinkedListNode(to_insert);
-					return;
-				}
 
+			LinkedListNode* current = head;
+			while (current->next != NULL) {
+				current = current->next;
+			}
+			current->next = new LinkedListNode(to_insert);
+		}
 
-				LinkedListNode* current = head;
-				while (current->next != NULL) {
-					current = current->next;
+		// returns null if not found
+		LinkedListNode* find(string to_find) {
+			LinkedListNode* current = head;
+			while (current != NULL) {
+				if (current->value == to_find) {
+					return current;
 				}
-				current->next = new LinkedListNode(to_insert);
+				current = current->next;
+			}
+			return NULL;
+		}
+
+		void remove(string to_remove) {
+			if (head == NULL) {
+				return;
 			}
 
-			// returns null if not found
-			LinkedListNode* find_prev(string to_find) { 
-				LinkedListNode* current = head;
-				while (current != NULL) {
-					if (current->next->value == to_find) {
-						return current;
-					}
-					current = current->next;
-				}
-				return NULL;
+			if (head->value == to_remove) {
+				LinkedListNode* temp = head;
+				head = head->next;
+				delete head;
 			}
 
-			// returns null if not found
-			LinkedListNode* find(string to_find) {
-				LinkedListNode* current = head;
-				while (current != NULL) {
-					if (current->value == to_find) {
-						return current;
-					}
-					current = current->next;
-				}
-				return NULL;
+			LinkedListNode* remove = find_prev(to_remove);
+			if (remove == NULL) {
+				return;
 			}
-
-			void remove(string to_remove) {
-				if (head == NULL) {
-					return;
-				}
-
-				if (head->value == to_remove) {
-					LinkedListNode* temp = head;
-					head = head->next;
-					delete head;
-				}
-
-				LinkedListNode* remove = find_prev(to_remove);
-				if (remove == NULL) {
-					return;
-				}
-				LinkedListNode* temp = remove->next;
-				remove->next = temp->next;
-				delete temp;
-			}
-		};
+			LinkedListNode* temp = remove->next;
+			remove->next = temp->next;
+			delete temp;
+		}
+	};
 
 	
 		Graph(int num_vertices);
@@ -183,7 +146,7 @@ public:
 
 		void add_edge(string source, string destination);
 		void remove_edge(string source, string destination);
-		void print_graph();
+		void print_graph(std::ostream &out);
 
 		const std::vector<AdjacencyList>& getAdjacencyList() const; 
 

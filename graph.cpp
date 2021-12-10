@@ -12,13 +12,16 @@ Graph::Graph(std::vector<string> vertices, std::vector<std::pair<string, string>
     }
 }
 
-void Graph::print_graph() {
+void Graph::print_graph(std::ostream& out) {
     for (auto adj : adjacency_list) {
-        std::cout << adj.head->value << ":= ";
-        // for (auto list : adj.head) {
-        //     std::cout << list->value << " --> ";
-        // }
-        std::cout << std::endl;
+        out << adj.head->value << ":= ";
+        for (auto header = adj.head->next; header != NULL; header = header->next) {
+            if (header->next != NULL) {
+                out << header->value << " --> ";
+            } else {
+                out << header->value << "; ";
+            }
+        }
     }
 }
 
@@ -68,21 +71,11 @@ void Graph::add_edge(string source, string destination) {
     } else {
         // make new adj node
         AdjacencyList source_list = AdjacencyList();
+        source_list.insert_at_end(source);
         source_list.insert_at_end(destination);
         source_list.num_edges += 1;
 
         adjacency_list.push_back(source_list);
-    }
-
-    if (dest_idx != start_size) {
-        insert_into_adjlist(source_idx, destination);
-    } else {
-        // make new adj node
-        AdjacencyList dest_list = AdjacencyList();
-        dest_list.insert_at_end(source);
-        dest_list.num_edges += 1;
-
-        adjacency_list.push_back(dest_list);
     }
 }
 
@@ -90,9 +83,10 @@ void Graph::remove_edge(string source, string destination) {
     // first ensure that both source and dest actually exist in the adj list
     unsigned start_idx = adjacency_list.size();
     unsigned source_idx = find_adjlist_idx(source);
-    unsigned dest_idx = find_adjlist_idx(destination);
 
-    if (source_idx == start_idx || dest_idx == start_idx) {
+    // Changed this because it doesn't matter whether the destination has it's own adj list or not
+    // What matters is that the source has it's own adj list
+    if (source_idx == start_idx) {
         std::cout << "ONE OR BOTH ITEMS DIDN'T EXIST IN remove_edge()" << std::endl;
         return;
     }
@@ -101,14 +95,12 @@ void Graph::remove_edge(string source, string destination) {
     // don't remove them from the adj list overall
 
     adjacency_list[source_idx].remove(destination);
-    adjacency_list[dest_idx].remove(source);
 }
 
 bool Graph::isAdjacent(string source, string destination) {
     unsigned source_idx = find_adjlist_idx(source);
-    unsigned dest_idx = find_adjlist_idx(destination);
 
-    if (source_idx == adjacency_list.size() || dest_idx == adjacency_list.size()) {
+    if (source_idx == adjacency_list.size()) {
         std::cout << "Not adjacent; one or both didn't have a node in the graph!" << std::endl;
         return false;
     }

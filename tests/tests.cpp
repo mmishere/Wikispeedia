@@ -83,3 +83,92 @@ TEST_CASE("Checking the structs Adjacency List") {
         REQUIRE(node == NULL);
     }
 }
+
+TEST_CASE("Now Checking the Graph Class") {
+    // Here is the graph we will be using
+    // a -> b -> c
+    //      ^ \\
+    //      |  \\
+    //      d    e
+    // The best I can do, but b points to both c and e
+    // The vector we'll use for constructing the graph
+    // (Currently, it's assumed to be )
+    std::vector<std::string> vertices = {"a", "b", "c", "d", "e"};
+    std::vector<std::pair<std::string, std::string>> edges = {
+        {"a", "b"},
+        {"b", "c"},
+        {"b", "e"},
+        {"d", "b"}
+    };
+
+    SECTION("Testing the constructor (Also checks add_edges simultaneously)") {
+        Graph g(vertices, edges);
+        
+        stringstream ss;
+        g.print_graph(ss);
+        REQUIRE(ss.str() == "a:= b; b:= c --> e; d:= b; ");
+    }
+
+    SECTION("Testing remove_edge") {
+        Graph g(vertices, edges);
+        // Removing a normal edge
+        g.remove_edge("b", "c");
+        stringstream ss;
+        g.print_graph(ss);
+        REQUIRE(ss.str() == "a:= b; b:= e; d:= b; ");
+
+        // Removing an edge which would cause an adjacency list to be empty
+        g.remove_edge("a", "b");
+        ss.str("");
+        g.print_graph(ss);
+        REQUIRE(ss.str() == "a:= b:= e; d:= b; ");
+
+        // Removing an edge which does not exist. Nothing changes
+        g.remove_edge("a", "c");
+        ss.str("");
+        g.print_graph(ss);
+        REQUIRE(ss.str() == "a:= b:= e; d:= b; ");
+    }
+
+    SECTION("Testing isAdjacent") {
+        Graph g(vertices, edges);
+        REQUIRE(g.isAdjacent("a", "b") == true);
+        REQUIRE(g.isAdjacent("b", "a") == false);
+        REQUIRE(g.isAdjacent("b", "c") == true);
+        REQUIRE(g.isAdjacent("b", "e") == true);
+        REQUIRE(g.isAdjacent("d", "b") == true);
+        REQUIRE(g.isAdjacent("d", "c") == false);
+        REQUIRE(g.isAdjacent("d", "e") == false);
+    }
+
+    SECTION("Testing adjacent") {
+        Graph g(vertices, edges);
+        auto adj = g.adjacent("b");
+        stringstream ss;
+        for (auto it = adj.begin(); it != adj.end(); ++it) {
+            ss << *it << " ";
+        }
+        REQUIRE(ss.str() == "c e ");
+
+        adj = g.adjacent("d");
+        ss.str("");
+        for (auto it = adj.begin(); it != adj.end(); ++it) {
+            ss << *it << " ";
+        }
+        REQUIRE(ss.str() == "b ");
+
+        adj = g.adjacent("a");
+        ss.str("");
+        for (auto it = adj.begin(); it != adj.end(); ++it) {
+            ss << *it << " ";
+        }
+        REQUIRE(ss.str() == "b ");
+
+        adj = g.adjacent("c");
+        ss.str("");
+        for (auto it = adj.begin(); it != adj.end(); ++it) {
+            ss << *it << " ";
+        }
+        REQUIRE(ss.str() == "");
+    }
+}
