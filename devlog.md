@@ -16,4 +16,4 @@ This week, we completed our data processing and cleaning. We also set up the mak
 This week, we implemented our graph using an adjacency list. Our breadth first search is still in progress, but we aim to have it completed by next week. We also developed a parser to turn our processed vertex and edge list files into a graph. Additionally, we are in the process of writing test cases to go along with our implementations.
 
 ## December 6 - 12
-
+This week, we wrote test cases and debugged our graph implementation. We have finished the BFS. We are working on the strongly connected algorithm as well as the betweenness centrality one. We also wrote up our project’s README file.
