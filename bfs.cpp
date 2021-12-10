@@ -7,6 +7,19 @@ BFS::BFS(Graph * graph) {
 }
 
 std::vector<string> BFS::findPath(string & start, string & end) {
+    //edge case, empty strings
+    if (start.empty() || end.empty()) {
+        return std::vector<string>(); //empty vector
+    }
+    
+    std::vector<string> output;
+    
+    //edge case, same start and end
+    if (start == end) {
+        output.push_back(start);
+        return output;
+    }
+    
     std::queue<string> queue;
     int num_vertices = graph_->get_num_vertices();
     std::unordered_map<string, int> distances;
@@ -46,7 +59,6 @@ std::vector<string> BFS::findPath(string & start, string & end) {
     }
 
     //finalize output
-    std::vector<string> output;
     output.push_back(end);
     currentVtx = end;
     while (predecessors.find(currentVtx) != predecessors.end()) {
