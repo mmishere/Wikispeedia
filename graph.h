@@ -160,6 +160,7 @@ public:
 		// indexes are very arbitrary but that's okay because they are ordered.
 		AdjacencyList getListByIdx(int idx);
 		int getIdxByNode(string node);
+		AdjacencyList& getAdjListByNode(string node);
 
 
 		Graph* getTranspose();
