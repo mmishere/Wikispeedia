@@ -1,5 +1,146 @@
 #include "graph.h"
 
+/// AdjacencyList functions
+void Graph::AdjacencyList::insert_at_end(string to_insert) {
+    if (head == NULL) {
+        head = new Graph::LinkedListNode(to_insert);
+        return;
+    }
+
+    LinkedListNode* current = head;
+    while (current->next != NULL) {
+        current = current->next;
+    }
+    current->next = new LinkedListNode(to_insert);
+}
+
+Graph::AdjacencyList::AdjacencyList() {
+    this->head = nullptr;
+    this->num_edges = 0;
+}
+
+Graph::AdjacencyList::AdjacencyList(LinkedListNode *head) {
+    this->head = head;
+    this->num_edges = 0;
+}
+
+Graph::AdjacencyList::~AdjacencyList() {
+    Graph::LinkedListNode* curr = head;
+    while (curr != NULL) {
+        curr = curr->next;
+        delete head;
+        head = curr;
+    }
+}
+
+Graph::AdjacencyList::AdjacencyList(const AdjacencyList& other) {
+    copy(other);
+    
+}
+
+Graph::AdjacencyList& Graph::AdjacencyList::operator=(const Graph::AdjacencyList& other) {
+    if (this != &other) {
+        copy(other);
+    }
+    return *this;
+}
+
+void Graph::AdjacencyList::copy(const Graph::AdjacencyList& other) {
+    this->num_edges = other.num_edges;
+    Graph::LinkedListNode* curr = other.head;
+    while (curr != NULL) {
+        this->insert_at_end(curr->value);
+        curr = curr->next;
+    }
+}
+
+bool Graph::AdjacencyList::remove_node(string to_remove) {
+    if (head->value == to_remove) {
+        // special case
+        Graph::LinkedListNode* temp = head;
+        head = head->next;
+        delete temp;
+        return true;
+    }
+
+    Graph::LinkedListNode* prev = head;
+    Graph::LinkedListNode* current = head;
+    while (current != NULL) {
+        current = current->next;
+        // In case nothing matches the value, current will become NULL
+        // which will cause a segfault on line 65, hence this if check
+        if (current == NULL) {
+            return false;
+        }
+        if (current->value == to_remove) {
+            // remove this node
+            prev->next = current->next;
+            delete current;
+            return true;
+        }
+        prev = prev->next;
+    }
+    return false;
+}
+
+// returns null if not found
+Graph::LinkedListNode* Graph::AdjacencyList::find_prev(string to_find) { 
+    Graph::LinkedListNode* current = head;
+    // Here, the check was only checking if current is NULL
+    // which was screwing up the inner if loop in case the string
+    // was not found
+    // Changed current to current->next to fix this on line 97(the line below)
+    while (current->next != NULL) {
+        if (current->next->value == to_find) {
+            return current;
+        }
+        current = current->next;
+    }
+    return NULL;
+}
+
+// returns null if not found
+Graph::LinkedListNode* Graph::AdjacencyList::find(string to_find) {
+    Graph::LinkedListNode* current = head;
+    while (current != NULL) {
+        if (current->value == to_find) {
+            return current;
+        }
+        current = current->next;
+    }
+    return NULL;
+}
+
+void Graph::AdjacencyList::remove(string to_remove) {
+    if (head == NULL) {
+        return;
+    }
+
+    if (head->value == to_remove) {
+        Graph::LinkedListNode* temp = head;
+        head = head->next;
+        delete head;
+    }
+
+    Graph::LinkedListNode* remove = find_prev(to_remove);
+    if (remove == NULL) {
+        return;
+    }
+    Graph::LinkedListNode* temp = remove->next;
+    remove->next = temp->next;
+    delete temp;
+}
+
+
+
+
+
+
+
+
+
+// Graph functions
+
 Graph::Graph(int num_vertices): num_vertices(num_vertices) { }
 
 Graph::Graph(std::vector<string> vertices, std::vector<std::pair<string, string>> edges) {
