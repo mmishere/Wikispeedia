@@ -148,8 +148,6 @@ public:
 		void remove_edge(string source, string destination);
 		void print_graph(std::ostream &out);
 
-		const std::vector<AdjacencyList>& getAdjacencyList() const; 
-
 		bool isAdjacent(string source, string destination);
 
 		vector<string> adjacent(string vertex);
@@ -157,12 +155,11 @@ public:
 		/** @return The number of vertices in the graph. */
 		int get_num_vertices();
 
+
+		// helpers for SSC
+		const std::vector<AdjacencyList>& getConnections() const; 
 		// indexes are very arbitrary but that's okay because they are ordered.
-		AdjacencyList getListByIdx(int idx);
-		int getIdxByNode(string node);
 		AdjacencyList& getAdjListByNode(string node);
-
-
 		Graph* getTranspose();
 
 	private:

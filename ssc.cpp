@@ -1,4 +1,4 @@
-#include "strongly_connected.h"
+#include "ssc.h"
 
 // initialize with NULL graph_
 StronglyConnected::StronglyConnected() {
@@ -9,12 +9,6 @@ StronglyConnected::StronglyConnected() {
 StronglyConnected::StronglyConnected(Graph* g) {
     graph_ = g;
     kosaraju();
-
-    // now pick some arbitrary point and then see if it has the full set
-    for (const set<string>& set : stronglyConnectedComponents_) {
-        graphIsStronglyConnected_ = (set.size() == g->get_num_vertices());
-        break; // only doing this loop to access a set element, since we don't have any particular vertices available here
-    }
 }
 
 // for two points in the graph, are they connected
@@ -35,19 +29,20 @@ bool StronglyConnected::isConnected(string first, string second) {
 }
 
 bool StronglyConnected::entireGraphSSC() {
-    return graphIsStronglyConnected_;
+    // size 0 == no nodes, size 1 == full graph
+    return (stronglyConnectedComponents_.size() <= 1);
 }
 
 void StronglyConnected::kosaraju() {
     set<string> visited;
     stack<string> stack;
 
-    auto graphConnections = graph_->getAdjacencyList(); 
+    auto graphConnections = graph_->getConnections(); 
     for (Graph::AdjacencyList adjList : graphConnections) {
         // use the head
         string point = adjList.head->value;
         if (visited.count(point) == 0) { // if not visited:
-            DFS(point, stack, visited, adjList); // current adjList
+            DFS(point, stack, visited); // current adjList
         }
     }
 

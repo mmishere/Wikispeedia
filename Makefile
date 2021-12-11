@@ -4,7 +4,7 @@ TEST = test
 
 # Add all object files needed for compiling:
 EXE_OBJ = main.o
-OBJS = main.o bfs.o graph.o strongly_connected.o 
+OBJS = main.o bfs.o graph.o ssc.o 
 OBJS += util/util.o
 
 # Use the cs225 makefile template:

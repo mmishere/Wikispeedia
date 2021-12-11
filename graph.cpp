@@ -26,7 +26,7 @@ void Graph::print_graph(std::ostream& out) {
 }
 
 
-const std::vector<Graph::AdjacencyList>& Graph::getAdjacencyList() const {
+const std::vector<Graph::AdjacencyList>& Graph::getConnections() const {
     return adjacency_list;
 }
 
