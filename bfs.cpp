@@ -69,3 +69,11 @@ std::vector<string> BFS::findPath(const string & start, const string & end) {
     std::reverse(output.begin(), output.end());
     return output;
 }
+
+std::map<std::string, int> BFS::centralities() {
+    std::map<std::string, int> output;
+
+
+
+    return output;
+}
