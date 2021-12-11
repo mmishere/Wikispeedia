@@ -59,6 +59,7 @@ void StronglyConnected::kosaraju() {
         stack.pop();
     }
 
+    delete transposed; // to avoid memory leaks, since it's on the heap
     // done!
 }
 
@@ -75,7 +76,7 @@ void StronglyConnected::DFS(string& point, stack<string>& stack, set<string>& vi
     stack.push(point);
 }
 
-void transposeDFS(Graph* transposed, string& point, set<string>& visited, set<string>& SSC) {
+void StronglyConnected::transposeDFS(Graph* transposed, string& point, set<string>& visited, set<string>& SSC) {
     visited.insert(point);
     SSC.insert(point);
 
