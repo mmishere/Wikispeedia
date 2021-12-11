@@ -51,9 +51,9 @@ public:
 		*/
 		Graph(std::vector<string> vertices, std::vector<std::pair<string, string>> edges);
 
-		Graph(const Graph& other);
-		Graph& operator=(const Graph& other);
-		~Graph();
+		// Graph(const Graph& other);
+		// Graph& operator=(const Graph& other);
+		// ~Graph();
 
 		void add_edge(string source, string destination);
 		void remove_edge(string source, string destination);
@@ -80,6 +80,6 @@ public:
 		void insert_into_adjlist(unsigned list_idx, string to_insert);
 		unsigned find_adjlist_idx(string to_find); // if this doesn't find it, it will return adjlist.size
 
-		void copy(const Graph& other);
+		// void copy(const Graph& other);
 
 };

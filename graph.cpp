@@ -166,26 +166,26 @@ Graph::Graph(std::vector<string> vertices, std::vector<std::pair<string, string>
     }
 }
 
-Graph(const Graph& other) {
-   copy(other);
-}
-Graph& operator=(const Graph& other) {
-    if (this != &other) {
-        copy(other);
-    }
-    return *this;
-}
+// Graph::Graph(const Graph& other) {
+//    copy(other);
+// }
+// Graph& Graph::operator=(const Graph& other) {
+//     if (this != &other) {
+//         copy(other);
+//     }
+//     return *this;
+// }
 
-void copy(const Graph& other) {
-    this->num_vertices = other.num_vertices;
-    for (const AdjacencyList& adjList : other.adjacency_list) {
-        AdjacencyList newList(adjList); // uses rule of 3 for adjlist
-        this->adjacency_list.push_back(newList);
-    }
-}
-~Graph() {
-    // do nothing, adjlist destructor should handle it
-}
+// void Graph::copy(const Graph& other) {
+//     this->num_vertices = other.num_vertices;
+//     for (const AdjacencyList& adjList : other.adjacency_list) {
+//         AdjacencyList newList(adjList); // uses rule of 3 for adjlist
+//         this->adjacency_list.push_back(newList);
+//     }
+// }
+// Graph::~Graph() {
+//     // do nothing, adjlist destructor should handle it
+// }
 
 void Graph::print_graph(std::ostream& out) {
     for (auto adj : adjacency_list) {
