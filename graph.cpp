@@ -152,7 +152,7 @@ void Graph::AdjacencyList::remove(string to_remove) {
 
 
 
-// Graph functions
+/// Graph functions
 
 Graph::Graph(int num_vertices): num_vertices(num_vertices) { }
 
@@ -164,6 +164,27 @@ Graph::Graph(std::vector<string> vertices, std::vector<std::pair<string, string>
     for (std::pair<string, string> edge : edges) {
         add_edge(edge.first, edge.second);
     }
+}
+
+Graph(const Graph& other) {
+   copy(other);
+}
+Graph& operator=(const Graph& other) {
+    if (this != &other) {
+        copy(other);
+    }
+    return *this;
+}
+
+void copy(const Graph& other) {
+    this->num_vertices = other.num_vertices;
+    for (const AdjacencyList& adjList : other.adjacency_list) {
+        AdjacencyList newList(adjList); // uses rule of 3 for adjlist
+        this->adjacency_list.push_back(newList);
+    }
+}
+~Graph() {
+    // do nothing, adjlist destructor should handle it
 }
 
 void Graph::print_graph(std::ostream& out) {
