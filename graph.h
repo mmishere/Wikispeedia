@@ -42,6 +42,36 @@ public:
 			this->num_edges = 0;
 		}
 
+		~AdjacencyList() {
+			LinkedListNode* curr = head;
+			while (curr != NULL) {
+				curr = curr->next;
+				delete head;
+				head = curr;
+			}
+		}
+
+		AdjacencyList(const AdjacencyList& other) {
+			copy(other);
+			
+		}
+
+		AdjacencyList& operator=(const AdjacencyList& other) {
+			if (this != &other) {
+				copy(other);
+			}
+			return *this;
+		}
+
+		void copy(const AdjacencyList& other) {
+			this->num_edges = other.num_edges;
+			LinkedListNode* curr = other.head;
+			while (curr != NULL) {
+				this->insert_at_end(curr->value);
+				curr = curr->next;
+			}
+		}
+
 		bool remove_node(string to_remove) {
 			if (head->value == to_remove) {
 				// special case

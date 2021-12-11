@@ -142,8 +142,8 @@ Graph* Graph:: getTranspose() {
 
     // add all nodes to adj list in the same order; empty for now
     for (AdjacencyList& a : adjacency_list) {
-        LinkedListNode* node = new LinkedListNode(a.head->value); // COULD CAUSE MEMORY LEAKS
-        AdjacencyList toPush(node);
+        AdjacencyList toPush;
+        toPush.insert_at_end(a.head->value);
         toReturn->adjacency_list.push_back(toPush);
     }
 
