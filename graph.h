@@ -16,18 +16,10 @@ public:
 		string value;
 		LinkedListNode *next;
 
-		LinkedListNode(string value) {
-			this->value = value;
-			this->next = nullptr;
-		}
-
-		LinkedListNode(string value, LinkedListNode *next) {
-			this->value = value;
-			this->next = next;
-		}
+		LinkedListNode(string value);
+		LinkedListNode(string value, LinkedListNode *next);
 	};
 
-public:
 	struct AdjacencyList {
 		LinkedListNode *head;
 		int num_edges;

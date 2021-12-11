@@ -1,5 +1,18 @@
 #include "graph.h"
 
+/// LinkedListNode functions
+Graph::LinkedListNode::LinkedListNode(string value) {
+    this->value = value;
+    this->next = nullptr;
+}
+
+Graph::LinkedListNode::LinkedListNode(string value, Graph::LinkedListNode *next) {
+    this->value = value;
+    this->next = next;
+}
+
+
+
 /// AdjacencyList functions
 void Graph::AdjacencyList::insert_at_end(string to_insert) {
     if (head == NULL) {
