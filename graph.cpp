@@ -188,7 +188,7 @@ Graph::Graph(std::vector<string> vertices, std::vector<std::pair<string, string>
 // }
 
 void Graph::print_graph(std::ostream& out) {
-    for (auto adj : adjacency_list) {
+    for (auto & adj : adjacency_list) {
         out << adj.head->value << ":= ";
         for (auto header = adj.head->next; header != NULL; header = header->next) {
             if (header->next != NULL) {

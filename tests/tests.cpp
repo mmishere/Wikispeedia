@@ -14,7 +14,7 @@ TEST_CASE("Sanity Check", "[part=1]") {
 
 TEST_CASE("Checking the structs Adjacency List") {
     // Lambda function for printing the adjacency list
-    auto printAdjList = [](Graph::AdjacencyList adjList, std::ostream& out) {
+    auto printAdjList = [](Graph::AdjacencyList & adjList, std::ostream& out) {
         for (auto list = adjList.head; list != nullptr; list = list->next) {
             out << list->value << " ";
         }
