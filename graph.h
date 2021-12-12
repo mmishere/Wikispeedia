@@ -26,11 +26,11 @@ public:
 
 		AdjacencyList();
 		AdjacencyList(LinkedListNode *head);
-		~AdjacencyList();
-		AdjacencyList(const AdjacencyList& other);
-		AdjacencyList& operator=(const AdjacencyList& other);
+		// ~AdjacencyList();
+		// AdjacencyList(const AdjacencyList& other);
+		// AdjacencyList& operator=(const AdjacencyList& other);
 
-		void copy(const AdjacencyList& other);
+		// void copy(const AdjacencyList& other);
 
 		bool remove_node(string to_remove);
 		LinkedListNode* find_prev(string to_find); // returns null if not found

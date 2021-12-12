@@ -37,35 +37,35 @@ Graph::AdjacencyList::AdjacencyList(LinkedListNode *head) {
     this->num_edges = 0;
 }
 
-Graph::AdjacencyList::~AdjacencyList() {
-    Graph::LinkedListNode* curr = head;
-    while (curr != NULL) {
-        curr = curr->next;
-        delete head;
-        head = curr;
-    }
-}
+// Graph::AdjacencyList::~AdjacencyList() {
+//     Graph::LinkedListNode* curr = head;
+//     while (curr != NULL) {
+//         curr = curr->next;
+//         delete head;
+//         head = curr;
+//     }
+// }
 
-Graph::AdjacencyList::AdjacencyList(const AdjacencyList& other) {
-    copy(other);
+// Graph::AdjacencyList::AdjacencyList(const AdjacencyList& other) {
+//     copy(other);
     
-}
+// }
 
-Graph::AdjacencyList& Graph::AdjacencyList::operator=(const Graph::AdjacencyList& other) {
-    if (this != &other) {
-        copy(other);
-    }
-    return *this;
-}
+// Graph::AdjacencyList& Graph::AdjacencyList::operator=(const Graph::AdjacencyList& other) {
+//     if (this != &other) {
+//         copy(other);
+//     }
+//     return *this;
+// }
 
-void Graph::AdjacencyList::copy(const Graph::AdjacencyList& other) {
-    this->num_edges = other.num_edges;
-    Graph::LinkedListNode* curr = other.head;
-    while (curr != NULL) {
-        this->insert_at_end(curr->value);
-        curr = curr->next;
-    }
-}
+// void Graph::AdjacencyList::copy(const Graph::AdjacencyList& other) {
+//     this->num_edges = other.num_edges;
+//     Graph::LinkedListNode* curr = other.head;
+//     while (curr != NULL) {
+//         this->insert_at_end(curr->value);
+//         curr = curr->next;
+//     }
+// }
 
 bool Graph::AdjacencyList::remove_node(string to_remove) {
     if (head->value == to_remove) {
