@@ -230,3 +230,24 @@ TEST_CASE("Now Checking the BFS Class") {
         delete g;
     }
 }
+
+TEST_CASE("Betweenness centrality") {
+
+    SECTION("Basic graph") {
+        // a -> b -> c
+        std::vector<std::string> vertices = {"a", "b", "c"};
+        std::vector<int> centralities = {3, 4, 3};
+        std::vector<std::pair<std::string, std::string>> edges = {
+            {"a", "b"},
+            {"b", "c"},
+        };
+
+        Graph* g = new Graph(vertices, edges);
+        BFS bfs(g);
+
+        std::map<std::string, double> output = bfs.centralities();
+        for (unsigned i = 0; i < vertices.size(); i++) {
+            REQUIRE(output.at(vertices[i]) == centralities[i]);
+        }
+    }
+}
