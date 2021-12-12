@@ -39,7 +39,7 @@ Graph* utils::parse_to_graph(string vertex_file_path, string edge_file_path) {
     return new Graph(vertices, edges);
 }
 
-void utils::save_centralities_to_file(string save_file_path, std::map<std::string, int> centralities) {
+void utils::save_centralities_to_file(string save_file_path, std::vector<std::pair<std::string, int>> centralities) {
     std::fstream file;
     file.open(save_file_path, std::ios::out);
 

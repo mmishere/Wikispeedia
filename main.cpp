@@ -17,5 +17,5 @@ int main() {
 
     std::cout << "Num Vertices: " << g->get_num_vertices() << std::endl;
 
-    utils::save_centralities_to_file(centrality_save_path, bfs.centralities());
+    utils::save_centralities_to_file(centrality_save_path, bfs.centralitiesSorted());
 }

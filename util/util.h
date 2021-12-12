@@ -25,8 +25,8 @@ namespace utils {
     * If the passed file path does not exist, it will be automatically created.
     *
     * @param save_file_path The file in which to save the data.
-    * @param centralities The map of nodes and their centralities.
+    * @param centralities The vector of nodes and their centralities.
     */
-    void save_centralities_to_file(string save_file_path, std::map<std::string, int> centralities);
+    void save_centralities_to_file(string save_file_path, std::vector<std::pair<std::string, int>> centralities);
 
 } // namespace utils

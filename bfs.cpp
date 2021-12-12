@@ -139,3 +139,22 @@ std::map<std::string, int> BFS::centralities() {
 
     // return output;
 }
+
+std::vector<std::pair<std::string, int>> BFS::centralitiesSorted() {
+    std::map<std::string, int> centralities_map = centralities();
+    std::vector<std::pair<std::string, int>> sorted_centralities;
+
+    // loop through map and add to vector
+    for (auto entry : centralities_map) {
+        sorted_centralities.push_back(entry);
+    }
+
+    // sort the vector
+    sort(sorted_centralities.begin(), sorted_centralities.end(), is_centrality_greater);
+
+    return sorted_centralities;
+}
+
+bool is_centrality_greater(const std::pair<std::string, int>& node1, const std::pair<std::string, int>& node2) {
+    return node1.second > node2.second;
+}
