@@ -1,4 +1,5 @@
 #include "bfs.h"
+#include <iostream>
 
 using std::string;
 
@@ -73,32 +74,68 @@ std::vector<string> BFS::findPath(const string & start, const string & end) {
 std::map<std::string, int> BFS::centralities() {
     std::map<std::string, int> output;
 
-    // loop through every vertex to calculate centrality
-    for (int v = 0; v < graph_->get_num_vertices(); v++) {
-        double total_centrality = 0;
-        std::vector<std::vector<std::string>> paths;
+    //get vector of all node strings
+    std::set<string> nodes;
 
-        // run bfs on every node pair and store the path
-        for (int s = 0; s < graph_->get_num_vertices(); s++) {
-            for (int t = 0; t < graph_->get_num_vertices(); t++) {
-                paths.push_back(findPath(std::to_string(s), std::to_string(t)));
+    auto graphConnections = graph_->getConnections(); 
+    for (Graph::AdjacencyList & adjList : graphConnections) { //for each linked list in graphConnections
+        auto current = adjList.head;
+        while (current != NULL) { //walk through list
+            if (nodes.find(current->value) == nodes.end()) { //if value not in nodes, add it
+                nodes.insert(current->value);
+                std::cout << "found node " << current->value << std::endl;
             }
-        }
 
-        // count times v appears
-        int count = 0;
-        for (size_t p = 0; p < paths.size(); p++) {
-            for (size_t n = 0; n < paths[p].size(); n++) {
-                if (paths[p][n] == std::to_string(v)) {
-                    count++;
-                    break;
+            current = current->next;
+        }
+        
+    }
+
+    for (const string & v1 : nodes) {
+        for (const string & v2 : nodes) {
+            std::vector<string> path = findPath(v1, v2); //BFS between nodes
+            if (path.empty()) { //do nothing if no path exists
+                continue;
+            }
+
+            for (string & s : path) {
+                if (output.find(s) == output.end()) { //if key not already in output map
+                    output[s] = 1;
+                } else { //key is already in map, increment value
+                    output[s]++;
                 }
             }
         }
-
-        // add to final result
-        output.insert(std::pair<std::string, double>(std::to_string(v), total_centrality));
     }
 
     return output;
+
+    // loop through every vertex to calculate centrality
+    // for (int v = 0; v < graph_->get_num_vertices(); v++) {
+    //     double total_centrality = 0;
+    //     std::vector<std::vector<std::string>> paths;
+
+    //     // run bfs on every node pair and store the path
+    //     for (int s = 0; s < graph_->get_num_vertices(); s++) {
+    //         for (int t = 0; t < graph_->get_num_vertices(); t++) {
+    //             paths.push_back(findPath(std::to_string(s), std::to_string(t)));
+    //         }
+    //     }
+
+    //     // count times v appears
+    //     int count = 0;
+    //     for (size_t p = 0; p < paths.size(); p++) {
+    //         for (size_t n = 0; n < paths[p].size(); n++) {
+    //             if (paths[p][n] == std::to_string(v)) {
+    //                 count++;
+    //                 break;
+    //             }
+    //         }
+    //     }
+
+    //     // add to final result
+    //     output.insert(std::pair<std::string, double>(std::to_string(v), total_centrality));
+    // // }
+
+    // return output;
 }
