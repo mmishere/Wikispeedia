@@ -3,10 +3,14 @@
 #include "../graph.h"
 
 #include "../bfs.h"
+#include "../ssc.h"
 
 #include <sstream>
 
 using std::stringstream;
+
+using std::vector;
+using std::string;
 
 TEST_CASE("Sanity Check", "[part=1]") {
     REQUIRE( 0 == 0 );
@@ -249,5 +253,174 @@ TEST_CASE("Betweenness centrality") {
         for (unsigned i = 0; i < vertices.size(); i++) {
             REQUIRE(output.at(vertices[i]) == centralities[i]);
         }
+
+        delete g;
+    }
+}
+
+TEST_CASE("Strongly Connected Components") {
+    SECTION("One node") {
+        vector<string> vertices = {"a"};
+        vector<std::pair<string, string>> edges = {};
+        Graph* g = new Graph(vertices, edges);
+
+        StronglyConnected ssc(g);
+        const set<string>* strongConnections = ssc.getConnected("a");
+        REQUIRE(strongConnections->size() == 0);
+
+        const set<string>* invalid = ssc.getConnected("");
+        REQUIRE(invalid == NULL);
+
+
+        delete g;
+    }
+
+    SECTION ("Two nodes, connected") {
+        vector<string> vertices = {"a", "bb"};
+        vector<std::pair<string, string>> edges = {
+            {"a", "bb"},
+            {"bb", "a"},
+        };
+        Graph* g = new Graph(vertices, edges);
+
+        StronglyConnected ssc(g);
+        const set<string>* strongConnections = ssc.getConnected("a");
+        REQUIRE(strongConnections->size() == 2);
+        REQUIRE(ssc.isConnected("a", "bb"));
+        REQUIRE(ssc.isConnected("bb", "a"));
+
+        const set<string>* invalid = ssc.getConnected("");
+        REQUIRE(invalid == NULL);
+
+        delete g;
+    }
+
+    SECTION("Two nodes, unconnected") {
+        vector<string> vertices = {"a", "bb"};
+        vector<std::pair<string, string>> edges = {
+            {"a", "bb"},
+        };
+        Graph* g = new Graph(vertices, edges);
+
+        StronglyConnected ssc(g);
+        const set<string>* strongConnectionsA = ssc.getConnected("a");
+        REQUIRE (strongConnectionsA->size() == 1);
+
+        const set<string>* strongConnectionsBB = ssc.getConnected("bb");
+        REQUIRE (strongConnectionsBB->size() == 1);
+
+        REQUIRE(ssc.isConnected("a", "bb"));
+        REQUIRE(!(ssc.isConnected("bb", "a")));
+
+        const set<string>* invalid = ssc.getConnected("");
+        REQUIRE(invalid == NULL);
+
+        delete g;
+    }
+
+    SECTION("Basic graph w/ 1 cycle") {
+        vector<string> vertices = {"a", "b", "c", "d", "e", "f", "g"};
+        // ab, bd, da cycle
+        // bc, ce, ec
+        // fe, fg
+        vector<std::pair<string, string>> edges = {
+            {"a", "b"},
+            {"b", "d"},
+            {"d", "a"},
+            {"b", "c"},
+            {"c", "e"},
+            {"e", "c"},
+            {"f", "e"},
+            {"f", "g"},
+        };
+        Graph* g = new Graph(vertices, edges);
+
+        StronglyConnected ssc(g);
+        const set<string>* strongConnectionsA = ssc.getConnected("a");
+        REQUIRE (strongConnectionsA->size() == 3);
+
+        const set<string>* strongConnectionsB = ssc.getConnected("b");
+        REQUIRE (strongConnectionsB->size() == 3);
+
+        const set<string>* strongConnectionsC = ssc.getConnected("c");
+        REQUIRE (strongConnectionsC->size() == 2);
+
+        const set<string>* strongConnectionsD = ssc.getConnected("d");
+        REQUIRE (strongConnectionsD->size() == 3);
+
+        const set<string>* strongConnectionsE = ssc.getConnected("e");
+        REQUIRE (strongConnectionsE->size() == 2);
+
+        const set<string>* strongConnectionsFB = ssc.getConnected("f");
+        REQUIRE (strongConnectionsFB->size() == 1);
+
+        const set<string>* strongConnectionsG = ssc.getConnected("g");
+        REQUIRE (strongConnectionsG->size() == 1);
+
+
+        // cycle
+        REQUIRE(ssc.isConnected("a", "b"));
+        REQUIRE(ssc.isConnected("b", "d"));
+        REQUIRE(ssc.isConnected("d", "a"));
+
+        // require opposite connections as well; they're in the same ssc
+        REQUIRE(ssc.isConnected("b", "a"));
+        REQUIRE(ssc.isConnected("d", "b"));
+        REQUIRE(ssc.isConnected("a", "d"));
+
+        // ce pair
+        REQUIRE(ssc.isConnected("c", "e"));
+        REQUIRE(ssc.isConnected("e", "c"));
+
+
+        // nodes with only themselves in the ssc
+        REQUIRE(ssc.isConnected("f", "f"));
+        REQUIRE(ssc.isConnected("g", "g"));
+
+        // now ensure that nothing is connected that shouldn't be
+        REQUIRE(!(ssc.isConnected("a", "c")));
+        REQUIRE(!(ssc.isConnected("a", "e")));
+        REQUIRE(!(ssc.isConnected("a", "f")));
+        REQUIRE(!(ssc.isConnected("a", "g")));
+        REQUIRE(!(ssc.isConnected("b", "c")));
+        REQUIRE(!(ssc.isConnected("b", "e")));
+        REQUIRE(!(ssc.isConnected("b", "f")));
+        REQUIRE(!(ssc.isConnected("b", "g")));
+        REQUIRE(!(ssc.isConnected("d", "c")));
+        REQUIRE(!(ssc.isConnected("d", "e")));
+        REQUIRE(!(ssc.isConnected("d", "f")));
+        REQUIRE(!(ssc.isConnected("d", "g")));
+
+        REQUIRE(!(ssc.isConnected("c", "a")));
+        REQUIRE(!(ssc.isConnected("c", "b")));
+        REQUIRE(!(ssc.isConnected("c", "d")));
+        REQUIRE(!(ssc.isConnected("c", "f")));
+        REQUIRE(!(ssc.isConnected("c", "g")));
+        REQUIRE(!(ssc.isConnected("e", "a")));
+        REQUIRE(!(ssc.isConnected("e", "b")));
+        REQUIRE(!(ssc.isConnected("e", "d")));
+        REQUIRE(!(ssc.isConnected("e", "f")));
+        REQUIRE(!(ssc.isConnected("e", "g")));
+
+        REQUIRE(!(ssc.isConnected("f", "a")));
+        REQUIRE(!(ssc.isConnected("f", "b")));
+        REQUIRE(!(ssc.isConnected("f", "d")));
+        REQUIRE(!(ssc.isConnected("f", "c")));
+        REQUIRE(!(ssc.isConnected("f", "e")));
+        REQUIRE(!(ssc.isConnected("f", "g")));
+
+        REQUIRE(!(ssc.isConnected("g", "a")));
+        REQUIRE(!(ssc.isConnected("g", "b")));
+        REQUIRE(!(ssc.isConnected("g", "d")));
+        REQUIRE(!(ssc.isConnected("g", "c")));
+        REQUIRE(!(ssc.isConnected("g", "e")));
+        REQUIRE(!(ssc.isConnected("g", "f")));
+
+
+        // and as always an invalid check
+        const set<string>* invalid = ssc.getConnected("ksldjfsdf");
+        REQUIRE(invalid == NULL);
+
+        delete g;
     }
 }

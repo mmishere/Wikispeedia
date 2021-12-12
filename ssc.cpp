@@ -13,6 +13,9 @@ StronglyConnected::StronglyConnected(Graph* g) {
 
 // for two points in the graph, are they connected
 bool StronglyConnected::isConnected(string first, string second) {
+    if (first == second) {
+        return true;
+    }
     // iterate through stronglyConnectedComponents_ until we find one that contains first or second
     // then return whether it contains the other one
     for (const set<string>& s : stronglyConnectedComponents_) {
@@ -26,6 +29,16 @@ bool StronglyConnected::isConnected(string first, string second) {
     }
 
     return false; // both weren't in the graph, so it wasn't a valid search
+}
+
+const set<string>* StronglyConnected::getConnected(string input) {
+    for (const set<string>& s : stronglyConnectedComponents_) {
+        if (s.count(input) > 0) {
+            return &s;
+        }
+    }
+    
+    return NULL;
 }
 
 bool StronglyConnected::entireGraphSSC() {

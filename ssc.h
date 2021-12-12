@@ -22,10 +22,11 @@ class StronglyConnected {
         // for two points in the graph, are they connected
         bool isConnected(string first, string second);
 
+        const set<string>* getConnected(string input);
+
         // helper for constructor, sets up stronglyConnectedComponents_
         // uses kosaraju's algorithm: https://www.geeksforgeeks.org/strongly-connected-components/
         void kosaraju();
-
         bool entireGraphSSC();
 
 
