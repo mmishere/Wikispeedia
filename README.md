@@ -33,20 +33,36 @@ COMING SOON: See our [Results]() and [Presentation]()!
 
 # Building the Project
 ## Input and Output
-To set the input data, go to `main.cpp` annd change the `vertex_list_path` and `edge_list_path` variables to the file paths of the data you want to use. TO change the save file of the node betweenness centralities, change the `centrality_save_path` variable. All of these are located at the top of the `main()` function.
+Our main executible is run with `./wikispeedia` and will take combinations of several different arguments listed below:
 
-The default values:
-```c++
-string vertex_list_path = "data_sample/nodes.txt";
-string edge_list_path = "data_sample/edges.txt";
-string centrality_save_path = "results/centralities.txt";
+| Argument           | Description |
+|--------------------|-------------|
+| [node file path]   | The path to the node list file |
+| [edge file path]   | The path to the edge list file |
+| [output file path] | The output file to save betweenness centrality data |
+| [article 1 name]   | The name of the article for the BFS to start at |
+| [article 2 name]   | The name of the article for the BFS to end at |
+
+Here are examples and descriptions of each of the commands that we support:
+
 ```
+./wikispeedia nodes.txt edges.txt
+```
+Will display some general information about the graph in the terminal. This includes the connectedness and a couple of the nodes with the highest centrality.
 
-The resulting output will be in the terminal.
+```
+./wikispeedia nodes.txt edges.txt output.txt
+```
+Will save all of the centrality data to the specified output file.
+
+```
+./wikispeedia nodes.txt edges.txt article_1 article_2
+```
+Will display the path between the two passed article titles in the terminal.
 
 ## Compiling and Running
 1. run the `make` command
-2. run `./wikispeedia`
+2. run one of the `./wikispeedia` described in the above section
 
 ---
 
