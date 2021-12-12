@@ -66,9 +66,10 @@ void StronglyConnected::kosaraju() {
 void StronglyConnected::DFS(string& point, stack<string>& stack, set<string>& visited) {
     visited.insert(point);
 
-    Graph::LinkedListNode* curr = graph_->getAdjListByNode(point).head->next; // BE CAREFUL OF SEGFAULTS however they shouldn't happen here so if they do then something went horribly wrong
-    while (curr != NULL) {
-        string& child = curr->value;
+    vector<string> adj = graph_->adjacent(point);
+    // it's okay if adj size is 0; that just means that it's its own connected component
+
+    for (string& child : adj) {
         if (visited.count(child) == 0) {
             DFS(child, stack, visited);
         }
@@ -80,9 +81,8 @@ void StronglyConnected::transposeDFS(Graph* transposed, string& point, set<strin
     visited.insert(point);
     SSC.insert(point);
 
-    Graph::LinkedListNode* curr = transposed->getAdjListByNode(point).head->next; // same thing with segfaults here
-    while (curr != NULL) {
-        string& child = curr->value;
+    vector<string> adj = transposed->adjacent(point);
+    for (string& child : adj) {
         if (visited.count(child) == 0) {
             transposeDFS(transposed, child, visited, SSC);
         }

@@ -33,10 +33,8 @@ public:
 		void copy(const AdjacencyList& other);
 
 		bool remove_node(string to_remove);
-		// returns null if not found
-		LinkedListNode* find_prev(string to_find);
-		// returns null if not found
-		LinkedListNode* find(string to_find);
+		LinkedListNode* find_prev(string to_find); // returns null if not found
+		LinkedListNode* find(string to_find); // returns null if not found
 		void insert_at_end(string to_insert);
 		void remove(string to_remove);
 	};
