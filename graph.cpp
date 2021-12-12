@@ -306,7 +306,7 @@ int Graph::get_num_vertices() {
 }
 
 
-// functions for SSC
+/// graph helper functions for SSC
 
 const std::vector<Graph::AdjacencyList>& Graph::getConnections() const {
     return adjacency_list;
@@ -325,12 +325,9 @@ Graph* Graph:: getTranspose() {
     for (unsigned i = 0; i < adjacency_list.size(); i++) {
         string currentString = adjacency_list[i].head->value; // this has to exist so if it segfaults that's a good thing
         // iterate through the current vertex adjlist, adding inverses
-        AdjacencyList& currAdjList = adjacency_list.at(i);
-        LinkedListNode* currNode = currAdjList.head;
-        while (currNode != NULL) {
-            // insert into desired adjlist
-            getAdjListByNode(currNode->value).insert_at_end(currentString);
-            currNode = currNode->next;
+        vector<string> currAdjList = adjacent(currentString);
+        for (string& s : currAdjList) {
+            getAdjListByNode(s).insert_at_end(currentString);
         }
     }
 
