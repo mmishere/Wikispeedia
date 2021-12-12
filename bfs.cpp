@@ -70,26 +70,38 @@ std::vector<string> BFS::findPath(const string & start, const string & end) {
     return output;
 }
 
-std::map<std::string, int> BFS::centralities() {
-    std::map<std::string, int> output;
+std::map<std::string, double> BFS::centralities() {
+    std::map<std::string, double> output;
 
     // loop through every vertex to calculate centrality
-    /*
     for (int v = 0; v < graph_->get_num_vertices(); v++) {
         double total_centrality = 0;
-        std::vector<std::string> paths;
+        std::vector<std::vector<std::string>> paths;
 
-        // run bfs on every node pair
-
-        // store path
+        // run bfs on every node pair and store the path
+        for (int s = 0; s < graph_->get_num_vertices(); s++) {
+            for (int t = 0; t < graph_->get_num_vertices(); t++) {
+                paths.push_back(findPath(std::to_string(s), std::to_string(t)));
+            }
+        }
 
         // count times v appears
+        int count = 0;
+        for (size_t p = 0; p < paths.size(); p++) {
+            for (size_t n = 0; n < paths[p].size(); n++) {
+                if (paths[p][n] == std::to_string(v)) {
+                    count++;
+                    break;
+                }
+            }
+        }
 
-        // divide by total num paths
+        // divide by total num paths and add ot result
+        total_centrality += count / paths.size();
 
         // add to final result
+        output.insert(std::pair<std::string, double>(std::to_string(v), total_centrality));
     }
-    */
 
     return output;
 }
