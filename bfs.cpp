@@ -83,7 +83,7 @@ std::map<std::string, int> BFS::centralities() {
         while (current != NULL) { //walk through list
             if (nodes.find(current->value) == nodes.end()) { //if value not in nodes, add it
                 nodes.insert(current->value);
-                std::cout << "found node " << current->value << std::endl;
+                // std::cout << "found node " << current->value << std::endl;
             }
 
             current = current->next;
@@ -92,6 +92,7 @@ std::map<std::string, int> BFS::centralities() {
     }
 
     for (const string & v1 : nodes) {
+        // std::cout << "searching from " << v1 << std::endl;
         for (const string & v2 : nodes) {
             std::vector<string> path = findPath(v1, v2); //BFS between nodes
             if (path.empty()) { //do nothing if no path exists
