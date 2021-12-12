@@ -266,7 +266,7 @@ TEST_CASE("Strongly Connected Components") {
 
         StronglyConnected ssc(g);
         const set<string>* strongConnections = ssc.getConnected("a");
-        REQUIRE(strongConnections->size() == 0);
+        REQUIRE(strongConnections->size() == 1);
 
         const set<string>* invalid = ssc.getConnected("");
         REQUIRE(invalid == NULL);
