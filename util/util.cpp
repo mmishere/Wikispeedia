@@ -1,6 +1,6 @@
 #include "util.h"
 
-Graph utils::parse_to_graph(string vertex_file_path, string edge_file_path) {
+Graph* utils::parse_to_graph(string vertex_file_path, string edge_file_path) {
     // set split character
     string split_character = " ";
 
@@ -36,5 +36,23 @@ Graph utils::parse_to_graph(string vertex_file_path, string edge_file_path) {
     }
     
     // construct graph
-    return Graph(vertices, edges);
+    return new Graph(vertices, edges);
+}
+
+void utils::save_centralities_to_file(string save_file_path, std::map<std::string, int> centralities) {
+    std::fstream file;
+    file.open(save_file_path, std::ios::out);
+
+    // if file was not created, print error and exit
+    if (!file) {
+        std::cout << "File not created." << std::endl;
+        return;
+    }
+
+    // add map of centralities to file
+    for (auto entry : centralities) {
+        file << entry.first << " " << entry.second << std::endl;
+    }
+
+    file.close();
 }
