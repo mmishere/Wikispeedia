@@ -7,7 +7,7 @@ See our [Project Proposal](https://github-dev.cs.illinois.edu/cs225-fa21/mmaajed
 
 Check out our [Development Log](https://github-dev.cs.illinois.edu/cs225-fa21/mmaajed2-zpzhang2-chittal3-ecbrown2/blob/main/devlog.md) to see our weekly progress.
 
-COMING SOON: See our [Results]()!
+COMING SOON: See our [Results]() and [Presentation]()!
 
 ---
 
@@ -17,7 +17,7 @@ COMING SOON: See our [Results]()!
 - `util` subfolder contains our utility functions (data parser)
 - `tests` subfolder contains our unit tests
 - `graph.h/.cpp` contains our implementation of the graph datastructure using an adjacency list
-- `bfs.h/.cpp` contains out implementation of our breadth first search
+- `bfs.h/.cpp` contains out implementation of a breadth first search and naive betweenness centrailty algorithm
 - `strongly_connected.h/.cpp` contains our algorithm to check whether or not the graph is strongly connected
 
 ## Data
@@ -26,18 +26,20 @@ COMING SOON: See our [Results]()!
 - `data_sample` subfolder contains a small set of testing data in the same format as the Wikipedia data we are using
 
 ## Results
+- `results` subfolder contains any resulting output data files (sorted node centralities)
 - `main.cpp` contains the our main program to calculate and save results
 
 ---
 
 # Building the Project
 ## Input and Output
-To set the input data, go to `main.cpp` annd change the `vertex_list_path` and `edge_list_path` variables to the file paths of the data you want to use.
+To set the input data, go to `main.cpp` annd change the `vertex_list_path` and `edge_list_path` variables to the file paths of the data you want to use. TO change the save file of the node betweenness centralities, change the `centrality_save_path` variable. All of these are located at the top of the `main()` function.
 
-Ex.
+The default values:
 ```c++
 string vertex_list_path = "data_sample/nodes.txt";
 string edge_list_path = "data_sample/edges.txt";
+string centrality_save_path = "results/centralities.txt";
 ```
 
 The resulting output will be in the terminal.
@@ -50,7 +52,6 @@ The resulting output will be in the terminal.
 
 # Test Suite
 ## Test Descriptions
-
 ### `tests.cpp` - Graph Structure Tests
 - `"Checking the structs Adjacency List"` case includes:
     - adjacency list initialization
@@ -62,11 +63,20 @@ The resulting output will be in the terminal.
     - removing edges
     - `isAdjacent()` (if two nodes are adjacent)
     - `adjacent()` (the list of connected nodes)
+- `"Now Checking the BFS Class"` case includes:
+    - `findPath()` (if the path is the correct size and the output is correctly ordered)
+        - same start and end
+        - different start and end
+        - start and end with cycle
+- `"Betweenness centrality"` case includes:
+    - `centrality()` (if the raw centralities for each node are calculated correctly)
 
 ### `util-tests.cpp` - Utility Tests
-- `[parser]` tests include:
+- `[parser]` tagged tests include:
     - parser's constructed graph has the correct number of vertices
     - graph has the correct edges between nodes
+- `[centrality_saver]` tagged tests include:
+    - ensuring the generated centrality data file contains correct and sorted information
 
 ## Building and Running the Test Suite
 1. run the `make test` command
