@@ -27,7 +27,7 @@ class BFS {
 		*
 		* @returns A map of strings to their betweenness centralities.
 		*/
-		std::map<std::string, double> centralities();
+		std::map<std::string, int> centralities();
 	
 	private:
 		Graph * graph_;

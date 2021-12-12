@@ -245,7 +245,7 @@ TEST_CASE("Betweenness centrality") {
         Graph* g = new Graph(vertices, edges);
         BFS bfs(g);
 
-        std::map<std::string, double> output = bfs.centralities();
+        std::map<std::string, int> output = bfs.centralities();
         for (unsigned i = 0; i < vertices.size(); i++) {
             REQUIRE(output.at(vertices[i]) == centralities[i]);
         }
