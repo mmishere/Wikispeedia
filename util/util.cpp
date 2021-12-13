@@ -60,7 +60,7 @@ void utils::save_centralities_to_file(string save_file_path, std::vector<std::pa
 
     // add map of centralities to file
     for (auto entry : centralities) {
-        file << entry.first << " " << entry.second << std::endl;
+        file << entry.first << "\t" << entry.second << std::endl;
     }
 
     file.close();
