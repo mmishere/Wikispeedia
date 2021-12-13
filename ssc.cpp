@@ -47,6 +47,35 @@ bool StronglyConnected::entireGraphSSC() {
     return (stronglyConnectedComponents_.size() <= 1);
 }
 
+
+void StronglyConnected::save_strong_connections_to_file(string save_file_path) {
+    std::fstream file;
+    file.open(save_file_path, std::ios::out);
+
+    if (!file) {
+        std::cout << "File not created." << std::endl;
+        return;
+    }
+
+
+    for (const set<string>& set : stronglyConnectedComponents_) {
+        bool first = true;
+        for (const string& s : set) {
+            file << s;
+            if (first) {
+                file << "\n--------------------------------";
+                first = false;
+            }
+            file << "\n";
+        }
+        file << "\n\n";
+    }
+
+    file.close();
+}
+
+
+
 void StronglyConnected::kosaraju() {
     set<string> visited;
     stack<string> stack;
@@ -102,4 +131,4 @@ void StronglyConnected::transposeDFS(Graph* transposed, string& point, set<strin
             transposeDFS(transposed, child, visited, SSC);
         }
     }
-}
+}void save_strong_connections_to_file(string save_file_path);

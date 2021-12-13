@@ -24,6 +24,14 @@ class StronglyConnected {
         bool entireGraphSSC();
 
 
+      /**
+       * Saves the strongly connected components to a human-readable file.
+       * 
+       * @param save_file_path The file in which to save the data.
+       */
+      void save_strong_connections_to_file(string save_file_path);
+
+
     private:
         Graph* graph_;
         // each inner set contains all vertices that have a strong connection to each other (i.e. canTravel(a, b) && canTravel(b, a))

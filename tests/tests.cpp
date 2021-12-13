@@ -346,6 +346,8 @@ TEST_CASE("Betweenness centrality") {
             REQUIRE(output[item.first] == item.second);
         }
 
+        delete g;
+
     }
 }
 
