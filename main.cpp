@@ -85,11 +85,12 @@ int main(int argc, char** argv) {
     if (argc == 5 && std::string(argv[4]) == "BC") { // print centrality data to file
         BFS bfs(g);
         cout << "Calculating betweenness centralities..." << endl;
-        std::vector<std::pair<std::string, int>> centralities = bfs.centralitiesSorted();
 
+        std::vector<std::pair<std::string, int>> centralities = bfs.centralitiesSorted();
         utils::save_centralities_to_file(argv[3], centralities);
 
         cout << "Printed betweenness centrality data to: " << argv[3] << endl;
+        
         delete g;
         return 0;
 
@@ -111,7 +112,7 @@ int main(int argc, char** argv) {
         return 0;
 
         
-    } else if (argc == 5) {
+    } else if (argc == 5) { // find path between nodes
         // CHECK FOR PATH SEARCH
         {
             // cout << "args: " << endl;
