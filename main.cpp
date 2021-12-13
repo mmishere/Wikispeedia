@@ -69,6 +69,7 @@ int main(int argc, char** argv) {
         // cout << "(display graph info)" << endl;
 
         BFS bfs(g);
+        cout << "Calculating betweenness centralities..." << endl;
         std::vector<std::pair<std::string, int>> centralities = bfs.centralitiesSorted();
 
         // std::string::size_type sz;
@@ -101,27 +102,26 @@ int main(int argc, char** argv) {
         // cout << "(print centrality data to: " << argv[3] << ")" << endl;
 
         BFS bfs(g);
+        cout << "Calculating betweenness centralities..." << endl;
         std::vector<std::pair<std::string, int>> centralities = bfs.centralitiesSorted();
 
-        // std::string::size_type sz;
-
-        std::ofstream outputFile;
-        outputFile.open(argv[3]);
-
-        // for (unsigned i = 0; i < centralities.size(); i++) {
-        //     int titleIdx = std::stoi(centralities[i].first, &sz);
-        //     outputFile << centralities[i].second << "\t" << titles[titleIdx] << endl;
-        // }
-
-        for (auto & centrality : centralities) {
-            outputFile << centrality.second << "\t" << centrality.first << endl;
-        }
-
-        outputFile.close();
+        utils::save_centralities_to_file(argv[3], centralities);
 
         cout << "Printed betweenness centrality data to: " << argv[3] << endl;
-
         return 0;
+
+        // std::ofstream outputFile;
+        // outputFile.open(argv[3]);
+
+        // for (auto & centrality : centralities) {
+        //     outputFile << centrality.second << "\t" << centrality.first << endl;
+        // }
+
+        // outputFile.close();
+
+        // cout << "Printed betweenness centrality data to: " << argv[3] << endl;
+
+        // return 0;
     }
 
     if (argc == 5) { // find path between nodes
