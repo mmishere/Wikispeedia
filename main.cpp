@@ -57,7 +57,7 @@ int main(int argc, char** argv) {
         BFS bfs(g);
         std::vector<std::pair<std::string, int>> centralities = bfs.centralitiesSorted();
 
-        std::string::size_type sz;
+        // std::string::size_type sz;
         cout << "Nodes with highest betweenness centrality:" << endl;
         // for (unsigned i = 0; i < std::min((unsigned long) 10, centralities.size()); i++) {
         //     cout << centralities[i].first << "\t" << centralities[i].second << endl;;
@@ -94,10 +94,15 @@ int main(int argc, char** argv) {
         std::ofstream outputFile;
         outputFile.open(argv[3]);
 
-        for (unsigned i = 0; i < centralities.size(); i++) {
-            int titleIdx = std::stoi(centralities[i].first, &sz);
-            outputFile << centralities[i].second << "\t" << titles[titleIdx] << endl;
+        // for (unsigned i = 0; i < centralities.size(); i++) {
+        //     int titleIdx = std::stoi(centralities[i].first, &sz);
+        //     outputFile << centralities[i].second << "\t" << titles[titleIdx] << endl;
+        // }
+
+        for (auto & centrality : centralities) {
+            outputFile << centrality.second << "\t" << centrality.first << endl;
         }
+
         outputFile.close();
 
         cout << "Printed betweenness centrality data to: " << argv[3] << endl;
