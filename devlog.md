@@ -17,3 +17,6 @@ This week, we implemented our graph using an adjacency list. Our breadth first s
 
 ## December 6 - 12
 This week, we wrote test cases and debugged our graph implementation. We have finished the BFS. We are working on the strongly connected algorithm as well as the betweenness centrality one. We also wrote up our project’s README file.
+
+## LAST DAY DEVLOG UPDATE
+Since the last meeting, we have completed our strongly connected algorithm (Kosaraju’s algorithm) as well as our betweenness centrality algorithm. We chose the naive implementation of betweenness centrality due to time constraints. However, this causes an extremely long runtime on our final dataset so we cannot get our results within a reasonable timeframe. We have also developed a thorough set of test cases to ensure that everything is working properly (detailed in the [README](README.md#Test Suite)). Additionally, our main executable now supports flexible commands to see general graph data, calculate detweenness centralities and save them to a file, and display the shortest path between two articles (these commands are also detailed in the [README](README.md#Building the Project)).
