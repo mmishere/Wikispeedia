@@ -51,9 +51,14 @@ Here are examples and descriptions of each of the commands that we support:
 Will display some general information about the graph in the terminal. This includes the connectedness and a couple of the nodes with the highest centrality.
 
 ```
-./wikispeedia nodes.txt edges.txt output.txt
+./wikispeedia nodes.txt edges.txt output.txt BC
 ```
 Will save all of the centrality data to the specified output file.
+
+```
+./wikispeedia nodes.txt edges.txt output.txt SCC
+```
+Will save all of the strong connectedness data to the specified output file.
 
 ```
 ./wikispeedia nodes.txt edges.txt article_1 article_2
