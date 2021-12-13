@@ -293,6 +293,60 @@ TEST_CASE("Betweenness centrality") {
 
         delete g;
     }
+
+    SECTION("Complex graph") {
+        std::vector<std::string> vertices = {
+            "node a",
+            "node b",
+            "node c",
+            "node d",
+            "node e",
+            "node f",
+            "node g"
+        };
+        std::vector<std::pair<std::string, std::string>> edges = {
+            {"node a", "node b"},
+            {"node a", "node e"},
+            {"node b", "node c"},
+            {"node c", "node d"},
+            {"node c", "node e"},
+            {"node d", "node c"},
+            {"node e", "node f"},
+            {"node f", "node g"},
+            {"node g", "node e"}
+        };
+        std::map<string, int> expectedCentralities;
+        expectedCentralities["node a"] = 7;
+        expectedCentralities["node b"] = 9;
+        expectedCentralities["node c"] = 16;
+        expectedCentralities["node d"] = 8;
+        expectedCentralities["node e"] = 18;
+        expectedCentralities["node f"] = 14;
+        expectedCentralities["node g"] = 10;
+
+        // SHORTEST PATHS:
+        //         a        b        c        d        e        f        g
+        //
+        // a       a        ab       abc      abcd     ae       aef      aefg
+        // b                b        bc       bcd      bce      bcef     bcefg
+        // c                         c        cd       ce       cef      cefg
+        // d                         dc       d        dce      dcef     dcefg
+        // e                                           e        ef       efg
+        // f                                           fge      f        fg
+        // g                                           ge       gef      g
+
+
+        Graph* g = new Graph(vertices, edges);
+        BFS bfs(g);
+        
+        std::map<std::string, int> output = bfs.centralities();
+
+        std::map<std::string, int>::iterator it;
+        for (auto const & item : expectedCentralities) {
+            REQUIRE(output[item.first] == item.second);
+        }
+
+    }
 }
 
 TEST_CASE("Strongly Connected Components") {
