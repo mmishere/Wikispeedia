@@ -21,10 +21,6 @@ class StronglyConnected {
         bool isConnected(string first, string second);
 
         const set<string>* getConnected(string input);
-
-        // helper for constructor, sets up stronglyConnectedComponents_
-        // uses kosaraju's algorithm: https://www.geeksforgeeks.org/strongly-connected-components/
-        void kosaraju();
         bool entireGraphSSC();
 
 
@@ -33,6 +29,9 @@ class StronglyConnected {
         // each inner set contains all vertices that have a strong connection to each other (i.e. canTravel(a, b) && canTravel(b, a))
         set<set<string>> stronglyConnectedComponents_; // all components; set up in dfsHelper()
         
+        // helper for constructor, sets up stronglyConnectedComponents_
+        // uses kosaraju's algorithm: https://www.youtube.com/watch?v=RpgcYiky7uw
+        void kosaraju();
         // it is VERY VERY IMPORTANT that these go by reference; they need to alter the values!!!
         void DFS(string& point, stack<string>& stack, set<string>& visited);
         void transposeDFS(Graph* transposed, string& point, set<string>& visited, set<string>& SSC);

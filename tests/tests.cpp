@@ -109,13 +109,13 @@ TEST_CASE("Now Checking the Graph Class") {
         {"d", "b"}
     };
 
-    // SECTION("Testing the constructor (Also checks add_edges simultaneously)") {
-    //     Graph g(vertices, edges);
+    SECTION("Testing the constructor (Also checks add_edges simultaneously)") {
+        Graph g(vertices, edges);
         
-    //     stringstream ss;
-    //     g.print_graph(ss);
-    //     REQUIRE(ss.str() == "a:= b; b:= c --> e; c:= ; d:= b; e:= ; ");
-    // }
+        stringstream ss;
+        g.print_graph(ss);
+        REQUIRE(ss.str() == "a:= b; b:= c --> e; c:= ; d:= b; e:= ; ");
+    }
 
     SECTION("Testing remove_edge") {
         Graph g(vertices, edges);
