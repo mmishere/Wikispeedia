@@ -48,6 +48,8 @@ TEST_CASE("Parsed Graph Has Correct Edges Manual", "[parser]") {
     REQUIRE( g->isAdjacent("second really long article name", "third really long article name") );
     REQUIRE( g->isAdjacent("third really long article name", "first really long article name") );
     REQUIRE( g->isAdjacent("third really long article name", "second really long article name") );
+
+    delete g;
 }
 
 /*
