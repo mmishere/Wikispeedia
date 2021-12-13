@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
-#include <string>
+// #include <string>
 #include "util/util.h"
 #include "bfs.h"
 #include "ssc.h"
@@ -89,7 +89,7 @@ int main(int argc, char** argv) {
         BFS bfs(g);
         std::vector<std::pair<std::string, int>> centralities = bfs.centralitiesSorted();
 
-        std::string::size_type sz;
+        // std::string::size_type sz;
 
         std::ofstream outputFile;
         outputFile.open(argv[3]);
@@ -116,36 +116,40 @@ int main(int argc, char** argv) {
         string start = argv[3];
         string end = argv[4];
 
-        auto itStart = std::find(titles.begin(), titles.end(), start);
-        auto itEnd = std::find(titles.begin(), titles.end(), end);
-        if (itStart == titles.end()) {
-            cout << "Starting point not found: " << start << endl;
-            return 0;
-        }
-        if (itEnd == titles.end()) {
-            cout << "Ending point not found: " << end << endl;
-            return 0;
-        }
+        // auto itStart = std::find(titles.begin(), titles.end(), start);
+        // auto itEnd = std::find(titles.begin(), titles.end(), end);
+        // if (itStart == titles.end()) {
+        //     cout << "Starting point not found: " << start << endl;
+        //     return 0;
+        // }
+        // if (itEnd == titles.end()) {
+        //     cout << "Ending point not found: " << end << endl;
+        //     return 0;
+        // }
 
-        int startIdx = itStart - titles.begin();
-        int endIdx = itEnd - titles.begin();
-        string startIdxS = std::to_string(startIdx);
-        string endIdxS = std::to_string(endIdx);
+        // int startIdx = itStart - titles.begin();
+        // int endIdx = itEnd - titles.begin();
+        // string startIdxS = std::to_string(startIdx);
+        // string endIdxS = std::to_string(endIdx);
 
         BFS bfs(g);
         cout << "Searching for path..." << endl;
-        std::vector<string> path = bfs.findPath(startIdxS, endIdxS);
+        std::vector<string> path = bfs.findPath(start, end);
         if (path.empty()) {
             cout << "No path found." << endl;
             return 0;
         }
 
-        std::string::size_type sz;
+        // std::string::size_type sz;
 
         cout << "Path found:" << endl;
+        // for (string & s : path) {
+        //     int titleIdx = std::stoi(s, &sz);
+        //     cout << "\t" << titles[titleIdx] << endl;
+        // }
+
         for (string & s : path) {
-            int titleIdx = std::stoi(s, &sz);
-            cout << "\t" << titles[titleIdx] << endl;
+            cout << "\t" << s << endl;
         }
 
         return 0;
