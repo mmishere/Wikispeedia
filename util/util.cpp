@@ -1,4 +1,5 @@
 #include "util.h"
+#include <string>
 
 Graph* utils::parse_to_graph(string vertex_file_path, string edge_file_path) {
     // set split character
@@ -24,13 +25,21 @@ Graph* utils::parse_to_graph(string vertex_file_path, string edge_file_path) {
     edge_file.open(edge_file_path, std::ios::in);
     if (edge_file.is_open()) {
         string line;
+        std::string::size_type sz;
         while (getline(edge_file, line)) {
             // find the edge split 
             size_t split_pos = line.find(split_character);
             
             //add both vertexes to the edge list
             std::pair<string, string> new_edge = std::pair<string, string>(line.substr(0, split_pos), line.substr(split_pos + split_character.length()));
-            edges.push_back(new_edge);
+
+            int start = std::stoi(new_edge.first, &sz);
+            int end = std::stoi(new_edge.second, &sz);
+
+            std::pair<string, string> title_pair(vertices[start], vertices[end]);
+
+            // edges.push_back(new_edge);
+            edges.push_back(title_pair);
         }
         edge_file.close();
     }

@@ -42,10 +42,10 @@ TEST_CASE("Parsed Graph Has Correct Edges Manual", "[parser]") {
 
     Graph* g = utils::parse_to_graph(testing_vertex_list_path, testing_edge_list_path);
 
-    REQUIRE( g->isAdjacent("0", "1") );
-    REQUIRE( g->isAdjacent("1", "2") );
-    REQUIRE( g->isAdjacent("2", "0") );
-    REQUIRE( g->isAdjacent("2", "1") );
+    REQUIRE( g->isAdjacent("first really long article name", "second really long article name") );
+    REQUIRE( g->isAdjacent("second really long article name", "third really long article name") );
+    REQUIRE( g->isAdjacent("third really long article name", "first really long article name") );
+    REQUIRE( g->isAdjacent("third really long article name", "second really long article name") );
 }
 
 /*

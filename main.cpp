@@ -35,7 +35,7 @@ int main(int argc, char** argv) {
     string nodes_path = argv[1];
     cout << "Using edges file: " << argv[2] << endl;
     string edges_path = argv[2];
-    cout << endl;
+    // cout << endl;
 
     std::vector<string> titles;
     std::fstream file;
@@ -48,6 +48,7 @@ int main(int argc, char** argv) {
         file.close();
     }
 
+    cout << "Parsing graph data..." << endl;
     Graph * g = utils::parse_to_graph(nodes_path, edges_path);
 
     if (argc == 3) { // display graph info
@@ -58,9 +59,16 @@ int main(int argc, char** argv) {
 
         std::string::size_type sz;
         cout << "Nodes with highest betweenness centrality:" << endl;
-        for (unsigned i = 0; i < std::min((unsigned long) 10, centralities.size()); i++) {
-            int titleIdx = std::stoi(centralities[i].first, &sz);
-            cout << "\t" << titles[titleIdx] << ": " << centralities[i].second << endl;
+        // for (unsigned i = 0; i < std::min((unsigned long) 10, centralities.size()); i++) {
+        //     cout << centralities[i].first << "\t" << centralities[i].second << endl;;
+        //     cout << centralities.size() << endl;
+        //     // int titleIdx = std::stoi(centralities[i].first, &sz);
+        //     // cout << "\t" << titles[titleIdx] << ": " << centralities[i].second << endl;
+        // }
+
+        int shown = 0;
+        for (auto & centrality : centralities) {
+            cout << "\t" << centrality.second << ":\t" << centrality.first << endl;;
         }
 
         cout << endl;
@@ -120,6 +128,7 @@ int main(int argc, char** argv) {
         string endIdxS = std::to_string(endIdx);
 
         BFS bfs(g);
+        cout << "Searching for path..." << endl;
         std::vector<string> path = bfs.findPath(startIdxS, endIdxS);
         if (path.empty()) {
             cout << "No path found." << endl;
