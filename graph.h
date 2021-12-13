@@ -26,9 +26,9 @@ public:
 
 		AdjacencyList();
 		AdjacencyList(LinkedListNode *head);
-		~AdjacencyList();
-		AdjacencyList(const AdjacencyList& other);
-		AdjacencyList& operator=(const AdjacencyList& other);
+		// ~AdjacencyList();
+		// AdjacencyList(const AdjacencyList& other);
+		// AdjacencyList& operator=(const AdjacencyList& other);
 
 		// void copy(const AdjacencyList& other);
 
