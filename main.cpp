@@ -48,6 +48,20 @@ int main(int argc, char** argv) {
         file.close();
     }
 
+    // PREEMPTIVE CHECK FOR PATH SEARCH
+    if (argc == 5) {
+        string start = argv[3];
+        string end = argv[4];
+        if (std::find(titles.begin(), titles.end(), start) == titles.end()) {
+            cout << "Title not found: " << start << endl;
+            return 0;
+        }
+        if (std::find(titles.begin(), titles.end(), end) == titles.end()) {
+            cout << "Title not found: " << end << endl;
+            return 0;
+        }
+    }
+
     cout << "Parsing graph data..." << endl;
     Graph * g = utils::parse_to_graph(nodes_path, edges_path);
 
