@@ -20,7 +20,7 @@ TEST_CASE("Sanity Check", "[part=1]") {
 
 TEST_CASE("Checking the structs Adjacency List") {
     // Lambda function for printing the adjacency list
-    auto printAdjList = [](Graph::AdjacencyList & adjList, std::ostream& out) {
+    auto printAdjList = [](AdjacencyList & adjList, std::ostream& out) {
         for (auto list = adjList.head; list != nullptr; list = list->next) {
             out << list->value << " ";
         }
@@ -28,7 +28,7 @@ TEST_CASE("Checking the structs Adjacency List") {
 
     SECTION("Testing insertAtEnd") {
         // Initializing the adjacency list works
-        Graph::AdjacencyList adjList;
+        AdjacencyList adjList;
         adjList.insert_at_end("a");
         stringstream ss;
         printAdjList(adjList, ss);
@@ -47,7 +47,7 @@ TEST_CASE("Checking the structs Adjacency List") {
 
     SECTION("Testing removeNode") {
         // Removing a node which exists works
-        Graph::AdjacencyList adjList;
+        AdjacencyList adjList;
         adjList.insert_at_end("a");
         adjList.insert_at_end("b");
         adjList.insert_at_end("c");
@@ -66,7 +66,7 @@ TEST_CASE("Checking the structs Adjacency List") {
 
     SECTION("Testing findPrev") {
         // Finding a node which exists works
-        Graph::AdjacencyList adjList;
+        AdjacencyList adjList;
         adjList.insert_at_end("a");
         adjList.insert_at_end("b");
         adjList.insert_at_end("c");
@@ -79,7 +79,7 @@ TEST_CASE("Checking the structs Adjacency List") {
 
     SECTION("Testing findNode") {
         // Finding a node which exists works
-        Graph::AdjacencyList adjList;
+        AdjacencyList adjList;
         adjList.insert_at_end("a");
         adjList.insert_at_end("b");
         adjList.insert_at_end("c");
@@ -210,7 +210,10 @@ TEST_CASE("Now Checking the Graph Class") {
         REQUIRE(!(gT->isAdjacent("a", "d")));
         REQUIRE(!(gT->isAdjacent("e", "d")));
 
+        delete g;
+        delete gT;
     }
+
 }
 
 TEST_CASE("Now Checking the BFS Class") {

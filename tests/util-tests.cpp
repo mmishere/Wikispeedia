@@ -32,6 +32,8 @@ TEST_CASE("Parsed Graph Has Correct num_vertices", "[parser]") {
     
     REQUIRE( g->get_num_vertices() != 0 );
     REQUIRE( g->get_num_vertices() == vertex_count );
+
+    delete g;
 }
 
 /* NOTE: This test will need to be changed if the sample data files are edited */
@@ -46,6 +48,8 @@ TEST_CASE("Parsed Graph Has Correct Edges Manual", "[parser]") {
     REQUIRE( g->isAdjacent("second_really_long_article_name", "third_really_long_article_name") );
     REQUIRE( g->isAdjacent("third_really_long_article_name", "first_really_long_article_name") );
     REQUIRE( g->isAdjacent("third_really_long_article_name", "second_really_long_article_name") );
+
+    delete g;
 }
 
 /*
@@ -123,6 +127,8 @@ TEST_CASE("Centralities Save to File Correctly", "[centrality_saver]") {
         std::cout << "File could not be opened! Please check your file path." << std::endl;
         return;
     }
+
+    delete g;
 }
 
 TEST_CASE("Parsed Centralities Save to File Correctly", "[centrality_saver]") {
@@ -163,4 +169,6 @@ TEST_CASE("Parsed Centralities Save to File Correctly", "[centrality_saver]") {
         std::cout << "File could not be opened! Please check your file path." << std::endl;
         return;
     }
+
+    delete g;
 }

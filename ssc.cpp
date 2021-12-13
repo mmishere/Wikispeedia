@@ -53,7 +53,7 @@ void StronglyConnected::kosaraju() {
 
     auto graphConnections = graph_->getConnections();
 
-    for (Graph::AdjacencyList adjList : graphConnections) {
+    for (AdjacencyList adjList : graphConnections) {
         // use the head
         string point = adjList.head->value;
         if (visited.count(point) == 0) { // if not visited:

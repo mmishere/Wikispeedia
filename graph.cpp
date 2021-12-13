@@ -1,25 +1,14 @@
 #include "graph.h"
 
 #include <iostream>
-using std::cout; using std::endl;
-
-/// LinkedListNode functions
-Graph::LinkedListNode::LinkedListNode(string value) {
-    this->value = value;
-    this->next = nullptr;
-}
-
-Graph::LinkedListNode::LinkedListNode(string value, Graph::LinkedListNode *next) {
-    this->value = value;
-    this->next = next;
-}
-
+using std::cout;
+using std::endl;
 
 
 /// AdjacencyList functions
-void Graph::AdjacencyList::insert_at_end(string to_insert) {
+void AdjacencyList::insert_at_end(string to_insert) {
     if (head == NULL) {
-        head = new Graph::LinkedListNode(to_insert);
+        head = new LinkedListNode(to_insert);
         return;
     }
 
@@ -32,53 +21,49 @@ void Graph::AdjacencyList::insert_at_end(string to_insert) {
     current->next = new LinkedListNode(to_insert);
 }
 
-Graph::AdjacencyList::AdjacencyList() {
-    this->head = nullptr;
+AdjacencyList::AdjacencyList() {
+    this->head = NULL;
     this->num_edges = 0;
 }
 
-Graph::AdjacencyList::AdjacencyList(LinkedListNode *head) {
+AdjacencyList::AdjacencyList(LinkedListNode *head) {
     this->head = head;
     this->num_edges = 0;
 }
 
-// Graph::AdjacencyList::~AdjacencyList() {
-//     Graph::LinkedListNode* curr = head;
-//     while (curr != NULL) {
-//         curr = curr->next;
-//         delete head;
-//         head = curr;
-//     }
-// }
+AdjacencyList::~AdjacencyList() {
+    _delete();
+}
 
-// Graph::AdjacencyList::AdjacencyList(const AdjacencyList& other) {
-//     *this = other; 
-// }
+AdjacencyList::AdjacencyList(const AdjacencyList& other) {
+    *this = other; 
+}
 
-// Graph::AdjacencyList& Graph::AdjacencyList::operator=(const Graph::AdjacencyList& other) {
-//     if (this != &other) {
-//         // num_edges handled by insert_at_end
-//         Graph::LinkedListNode* curr = other.head;
-//         while (curr != NULL) {
-//             string s = curr->value;
-//             this->insert_at_end(s);
-//             curr = curr->next;
-//         }
-//     }
-//     return *this;
-// }
+AdjacencyList& AdjacencyList::operator=(const AdjacencyList& other) {
+    if (this != &other) {
+        _delete();
+        // num_edges handled by insert_at_end
+        LinkedListNode* curr = other.head;
+        while (curr != NULL) {
+            string s = curr->value;
+            this->insert_at_end(s);
+            curr = curr->next;
+        }
+    }
+    return *this;
+}
 
-bool Graph::AdjacencyList::remove_node(string to_remove) {
+bool AdjacencyList::remove_node(string to_remove) {
     if (head->value == to_remove) {
         // special case
-        Graph::LinkedListNode* temp = head;
+        LinkedListNode* temp = head;
         head = head->next;
         delete temp;
         return true;
     }
 
-    Graph::LinkedListNode* prev = head;
-    Graph::LinkedListNode* current = head;
+    LinkedListNode* prev = head;
+    LinkedListNode* current = head;
     while (current != NULL) {
         current = current->next;
         // In case nothing matches the value, current will become NULL
@@ -98,8 +83,8 @@ bool Graph::AdjacencyList::remove_node(string to_remove) {
 }
 
 // returns null if not found
-Graph::LinkedListNode* Graph::AdjacencyList::find_prev(string to_find) { 
-    Graph::LinkedListNode* current = head;
+AdjacencyList::LinkedListNode* AdjacencyList::find_prev(string to_find) { 
+    LinkedListNode* current = head;
     // Here, the check was only checking if current is NULL
     // which was screwing up the inner if loop in case the string
     // was not found
@@ -114,8 +99,8 @@ Graph::LinkedListNode* Graph::AdjacencyList::find_prev(string to_find) {
 }
 
 // returns null if not found
-Graph::LinkedListNode* Graph::AdjacencyList::find(string to_find) {
-    Graph::LinkedListNode* current = head;
+AdjacencyList::LinkedListNode* AdjacencyList::find(string to_find) {
+    LinkedListNode* current = head;
     while (current != NULL) {
         if (current->value == to_find) {
             return current;
@@ -125,26 +110,35 @@ Graph::LinkedListNode* Graph::AdjacencyList::find(string to_find) {
     return NULL;
 }
 
-void Graph::AdjacencyList::remove(string to_remove) {
+void AdjacencyList::remove(string to_remove) {
     if (head == NULL) {
         return;
     }
 
     if (head->value == to_remove) {
-        Graph::LinkedListNode* temp = head;
+        LinkedListNode* temp = head;
         head = head->next;
         delete head;
     }
 
-    Graph::LinkedListNode* remove = find_prev(to_remove);
+    LinkedListNode* remove = find_prev(to_remove);
     if (remove == NULL) {
         return;
     }
-    Graph::LinkedListNode* temp = remove->next;
+    LinkedListNode* temp = remove->next;
     remove->next = temp->next;
     delete temp;
 }
 
+void AdjacencyList::_delete() {
+    LinkedListNode* curr = head;
+    while (curr != NULL) {
+        LinkedListNode* temp = curr->next;
+        delete curr;
+        curr = temp;
+    }
+    head = NULL;
+}
 
 
 
@@ -162,7 +156,7 @@ Graph::Graph(std::vector<string> vertices, std::vector<std::pair<string, string>
     num_vertices = vertices.size();
     for (string s : vertices) {
         AdjacencyList a;
-        a.head = new LinkedListNode(s);
+        a.head = new AdjacencyList::LinkedListNode(s);
         adjacency_list.push_back(a);
     }
     
@@ -291,10 +285,10 @@ vector<string> Graph::adjacent(string vertex) {
     for (unsigned i = 0; i < adjacency_list.size(); i++) {
         if (adjacency_list[i].head->value == vertex) {
             // search in here
-            LinkedListNode* current = adjacency_list[i].head;
+            AdjacencyList::LinkedListNode* current = adjacency_list[i].head;
             current = current->next;
             // now iterate through until null and add to toReturn
-            while (current != nullptr) {
+            while (current != NULL) {
                 toReturn.push_back(current->value);
                 current = current->next;
             }
@@ -312,7 +306,7 @@ int Graph::get_num_vertices() {
 
 /// graph helper functions for SSC
 
-const std::vector<Graph::AdjacencyList>& Graph::getConnections() const {
+const std::vector<AdjacencyList>& Graph::getConnections() const {
     return adjacency_list;
 }
 
@@ -339,7 +333,7 @@ Graph* Graph:: getTranspose() {
     return toReturn;
 }
 
-Graph::AdjacencyList& Graph::getAdjListByNode(string node) {
+AdjacencyList& Graph::getAdjListByNode(string node) {
     for (AdjacencyList& a : adjacency_list) {
         if (a.head->value == node) {
             return a;

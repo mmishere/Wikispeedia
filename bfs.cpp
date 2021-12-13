@@ -90,7 +90,7 @@ std::map<std::string, int> BFS::centralities() {
     std::set<string> nodes;
 
     auto graphConnections = graph_->getConnections(); 
-    for (Graph::AdjacencyList & adjList : graphConnections) { //for each linked list in graphConnections
+    for (AdjacencyList& adjList : graphConnections) { //for each linked list in graphConnections
         auto current = adjList.head;
         while (current != NULL) { //walk through list
             if (nodes.find(current->value) == nodes.end()) { //if value not in nodes, add it
