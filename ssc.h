@@ -5,11 +5,9 @@
 #include <set>
 #include <string>
 #include <stack>
-#include <iostream>
 using std::set;
 using std::string;
 using std::stack;
-using std::cout; using std::endl;
 
 class StronglyConnected {
     public:

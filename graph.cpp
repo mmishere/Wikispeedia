@@ -1,5 +1,8 @@
 #include "graph.h"
 
+#include <iostream>
+using std::cout; using std::endl;
+
 /// LinkedListNode functions
 Graph::LinkedListNode::LinkedListNode(string value) {
     this->value = value;
@@ -159,6 +162,11 @@ Graph::Graph(int num_vertices): num_vertices(num_vertices) { }
 Graph::Graph(std::vector<string> vertices, std::vector<std::pair<string, string>> edges) {
     // add vertexes
     num_vertices = vertices.size();
+    for (string s : vertices) {
+        AdjacencyList a;
+        a.head = new LinkedListNode(s);
+        adjacency_list.push_back(a);
+    }
     
     // add edges
     for (std::pair<string, string> edge : edges) {
@@ -191,12 +199,12 @@ void Graph::print_graph(std::ostream& out) {
     for (auto & adj : adjacency_list) {
         out << adj.head->value << ":= ";
         for (auto header = adj.head->next; header != NULL; header = header->next) {
+            out << header->value;
             if (header->next != NULL) {
-                out << header->value << " --> ";
-            } else {
-                out << header->value << "; ";
+                out << " --> ";
             }
         }
+        out << "; ";
     }
 }
 
@@ -318,7 +326,8 @@ Graph* Graph:: getTranspose() {
     // add all nodes to adj list in the same order; empty for now
     for (AdjacencyList& a : adjacency_list) {
         AdjacencyList toPush;
-        toPush.insert_at_end(a.head->value);
+        string s = a.head->value;
+        toPush.insert_at_end(s);
         toReturn->adjacency_list.push_back(toPush);
     }
 
@@ -327,10 +336,10 @@ Graph* Graph:: getTranspose() {
         // iterate through the current vertex adjlist, adding inverses
         vector<string> currAdjList = adjacent(currentString);
         for (string& s : currAdjList) {
-            getAdjListByNode(s).insert_at_end(currentString);
+            toReturn->getAdjListByNode(s).insert_at_end(currentString);
         }
     }
-
+    
     return toReturn;
 }
 

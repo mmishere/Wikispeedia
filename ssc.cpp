@@ -19,6 +19,7 @@ bool StronglyConnected::isConnected(string first, string second) {
     // iterate through stronglyConnectedComponents_ until we find one that contains first or second
     // then return whether it contains the other one
     for (const set<string>& s : stronglyConnectedComponents_) {
+        
         if (s.count(first) > 0) {
             return s.count(second) > 0;
         }
@@ -50,7 +51,8 @@ void StronglyConnected::kosaraju() {
     set<string> visited;
     stack<string> stack;
 
-    auto graphConnections = graph_->getConnections(); 
+    auto graphConnections = graph_->getConnections();
+
     for (Graph::AdjacencyList adjList : graphConnections) {
         // use the head
         string point = adjList.head->value;
