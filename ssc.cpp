@@ -59,16 +59,10 @@ void StronglyConnected::save_strong_connections_to_file(string save_file_path) {
 
 
     for (const set<string>& set : stronglyConnectedComponents_) {
-        bool first = true;
         for (const string& s : set) {
-            file << s;
-            if (first) {
-                file << "\n--------------------------------";
-                first = false;
-            }
-            file << "\n";
+            file << s << "\n";
         }
-        file << "\n\n";
+        file << "\n";
     }
 
     file.close();
