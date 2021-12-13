@@ -94,7 +94,7 @@ int main(int argc, char** argv) {
             cout << "The graph IS NOT strongly connected: some pages are unreachable from other pages." << endl;
         }
 
-
+        delete g;
         return 0;
     }
 
@@ -108,6 +108,7 @@ int main(int argc, char** argv) {
         utils::save_centralities_to_file(argv[3], centralities);
 
         cout << "Printed betweenness centrality data to: " << argv[3] << endl;
+        delete g;
         return 0;
 
         // std::ofstream outputFile;
@@ -165,7 +166,7 @@ int main(int argc, char** argv) {
         for (string & s : path) {
             cout << "\t" << s << endl;
         }
-
+        delete g;
         return 0;
     }
 
