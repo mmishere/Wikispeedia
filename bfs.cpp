@@ -23,7 +23,7 @@ std::vector<string> BFS::findPath(const string & start, const string & end) {
     }
     
     std::queue<string> queue;
-    int num_vertices = graph_->get_num_vertices();
+    // int num_vertices = graph_->get_num_vertices();
     std::set<string> visited;
     std::unordered_map<string, string> predecessors;
     string currentVtx;

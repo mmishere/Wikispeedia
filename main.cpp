@@ -18,10 +18,16 @@ int main(int argc, char** argv) {
     // check bounds
     if (argc < 3) {
         cout << "Too few arguments: received " << argc - 1 << ", expected at least 2." << endl;
+        cout << "Usage: ./wikispeedia [nodes data file] [edges data file]" << endl;
+        cout << "Usage: ./wikispeedia [nodes data file] [edges data file] [betweenness centrality output file]" << endl;
+        cout << "Usage: ./wikispeedia [nodes data file] [edges data file] [BFS starting point] [BFS ending point]" << endl;
         return 0;
     }
     if (argc > 5) {
         cout << "Too many arguments: received " << argc - 1 << ", expected at most 4." << endl;
+        cout << "Usage: ./wikispeedia [nodes data file] [edges data file]" << endl;
+        cout << "Usage: ./wikispeedia [nodes data file] [edges data file] [betweenness centrality output file]" << endl;
+        cout << "Usage: ./wikispeedia [nodes data file] [edges data file] [BFS starting point] [BFS ending point]" << endl;
         return 0;
     }
 
