@@ -3,9 +3,9 @@ Developed by: mmaajed2, zpzhang2, chittal3, ecbrown2
 
 Given two Wikipedia articles, what's the shortest path between them using Wikipedia speedrun rules (i.e. only following links between articles)? Is there a strategy that works in general for any two pages?
 
-See our [Project Proposal](https://github-dev.cs.illinois.edu/cs225-fa21/mmaajed2-zpzhang2-chittal3-ecbrown2/blob/main/projectProposal.md) for more details.
+See our [Project Proposal](projectProposal.md) for more details.
 
-Check out our [Development Log](https://github-dev.cs.illinois.edu/cs225-fa21/mmaajed2-zpzhang2-chittal3-ecbrown2/blob/main/devlog.md) to see our weekly progress.
+Check out our [Development Log](devlog.md) to see our weekly progress.
 
 COMING SOON: See our [Results]() and [Presentation]()!
 
@@ -71,21 +71,31 @@ Will display the path between the two passed article titles in the terminal.
 ### `tests.cpp` - Graph Structure Tests
 - `"Checking the structs Adjacency List"` case includes:
     - adjacency list initialization
-    - adding multiple values
+    - adding multiple values to the end
     - removing nodes (existing or non-existing)
-    - finding nodes (existing or non-existing)
+    - finding nodes with `findPrev()` and `findNode()` (existing or non-existing)
 - `"Now Checking the Graph Class"` case includes:
-    - graph constructor (also checks adding edges)
-    - removing edges
+    - graph constructor
+    - adding edges
+    - removing edges (existing, non-existing, causing an adjacency list to be empty)
     - `isAdjacent()` (if two nodes are adjacent)
     - `adjacent()` (the list of connected nodes)
+    - `getTranspose()`
 - `"Now Checking the BFS Class"` case includes:
     - `findPath()` (if the path is the correct size and the output is correctly ordered)
+        - one of the nodes is not in the graph
         - same start and end
         - different start and end
         - start and end with cycle
 - `"Betweenness centrality"` case includes:
     - `centrality()` (if the raw centralities for each node are calculated correctly)
+        - basic graph
+        - complex graph
+- `"Strongly Connected Components"` case includes:
+    - one node graph
+    - two connected nodes
+    - two unconnected nodes
+    - basic graph with a cycle
 
 ### `util-tests.cpp` - Utility Tests
 - `[parser]` tagged tests include:
