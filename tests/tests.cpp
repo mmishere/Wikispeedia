@@ -354,7 +354,7 @@ TEST_CASE("Strongly Connected Components") {
     }
 
     SECTION("Basic graph w 1 cycle") {
-        vector<string> vertices = {"a", "b", "c", "d", "e", "f", "g"};
+        vector<string> vertices = {"a", "b", "c", "d", "e", "f", "g", "h"};
         // ab, bd, da cycle
         // bc, ce, ec
         // fe, fg
@@ -392,6 +392,9 @@ TEST_CASE("Strongly Connected Components") {
         const set<string>* strongConnectionsG = ssc.getConnected("g");
         REQUIRE (strongConnectionsG->size() == 1);
 
+        const set<string>* strongConnectionsH = ssc.getConnected("h");
+        REQUIRE (strongConnectionsH->size() == 1);
+
 
         // cycle
         REQUIRE(ssc.isConnected("a", "b"));
@@ -411,31 +414,37 @@ TEST_CASE("Strongly Connected Components") {
         // nodes with only themselves in the ssc
         REQUIRE(ssc.isConnected("f", "f"));
         REQUIRE(ssc.isConnected("g", "g"));
+        REQUIRE(ssc.isConnected("h", "h"));
 
         // now ensure that nothing is connected that shouldn't be
         REQUIRE(!(ssc.isConnected("a", "c")));
         REQUIRE(!(ssc.isConnected("a", "e")));
         REQUIRE(!(ssc.isConnected("a", "f")));
         REQUIRE(!(ssc.isConnected("a", "g")));
+        REQUIRE(!(ssc.isConnected("a", "h")));
         REQUIRE(!(ssc.isConnected("b", "c")));
         REQUIRE(!(ssc.isConnected("b", "e")));
         REQUIRE(!(ssc.isConnected("b", "f")));
         REQUIRE(!(ssc.isConnected("b", "g")));
+        REQUIRE(!(ssc.isConnected("b", "h")));
         REQUIRE(!(ssc.isConnected("d", "c")));
         REQUIRE(!(ssc.isConnected("d", "e")));
         REQUIRE(!(ssc.isConnected("d", "f")));
         REQUIRE(!(ssc.isConnected("d", "g")));
+        REQUIRE(!(ssc.isConnected("d", "h")));
 
         REQUIRE(!(ssc.isConnected("c", "a")));
         REQUIRE(!(ssc.isConnected("c", "b")));
         REQUIRE(!(ssc.isConnected("c", "d")));
         REQUIRE(!(ssc.isConnected("c", "f")));
         REQUIRE(!(ssc.isConnected("c", "g")));
+        REQUIRE(!(ssc.isConnected("c", "h")));
         REQUIRE(!(ssc.isConnected("e", "a")));
         REQUIRE(!(ssc.isConnected("e", "b")));
         REQUIRE(!(ssc.isConnected("e", "d")));
         REQUIRE(!(ssc.isConnected("e", "f")));
         REQUIRE(!(ssc.isConnected("e", "g")));
+        REQUIRE(!(ssc.isConnected("e", "h")));
 
         REQUIRE(!(ssc.isConnected("f", "a")));
         REQUIRE(!(ssc.isConnected("f", "b")));
@@ -443,6 +452,7 @@ TEST_CASE("Strongly Connected Components") {
         REQUIRE(!(ssc.isConnected("f", "c")));
         REQUIRE(!(ssc.isConnected("f", "e")));
         REQUIRE(!(ssc.isConnected("f", "g")));
+        REQUIRE(!(ssc.isConnected("f", "h")));
 
         REQUIRE(!(ssc.isConnected("g", "a")));
         REQUIRE(!(ssc.isConnected("g", "b")));
@@ -450,6 +460,15 @@ TEST_CASE("Strongly Connected Components") {
         REQUIRE(!(ssc.isConnected("g", "c")));
         REQUIRE(!(ssc.isConnected("g", "e")));
         REQUIRE(!(ssc.isConnected("g", "f")));
+        REQUIRE(!(ssc.isConnected("g", "h")));
+
+        REQUIRE(!(ssc.isConnected("h", "a")));
+        REQUIRE(!(ssc.isConnected("h", "b")));
+        REQUIRE(!(ssc.isConnected("h", "d")));
+        REQUIRE(!(ssc.isConnected("h", "c")));
+        REQUIRE(!(ssc.isConnected("h", "e")));
+        REQUIRE(!(ssc.isConnected("h", "f")));
+        REQUIRE(!(ssc.isConnected("h", "g")));
 
 
         // and as always an invalid check
