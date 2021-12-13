@@ -23,6 +23,8 @@ void Graph::AdjacencyList::insert_at_end(string to_insert) {
         return;
     }
 
+    this->num_edges += 1;
+
     LinkedListNode* current = head;
     while (current->next != NULL) {
         current = current->next;
@@ -50,24 +52,20 @@ Graph::AdjacencyList::AdjacencyList(LinkedListNode *head) {
 // }
 
 // Graph::AdjacencyList::AdjacencyList(const AdjacencyList& other) {
-//     copy(other);
-    
+//     *this = other; 
 // }
 
 // Graph::AdjacencyList& Graph::AdjacencyList::operator=(const Graph::AdjacencyList& other) {
 //     if (this != &other) {
-//         copy(other);
+//         // num_edges handled by insert_at_end
+//         Graph::LinkedListNode* curr = other.head;
+//         while (curr != NULL) {
+//             string s = curr->value;
+//             this->insert_at_end(s);
+//             curr = curr->next;
+//         }
 //     }
 //     return *this;
-// }
-
-// void Graph::AdjacencyList::copy(const Graph::AdjacencyList& other) {
-//     this->num_edges = other.num_edges;
-//     Graph::LinkedListNode* curr = other.head;
-//     while (curr != NULL) {
-//         this->insert_at_end(curr->value);
-//         curr = curr->next;
-//     }
 // }
 
 bool Graph::AdjacencyList::remove_node(string to_remove) {
@@ -174,26 +172,24 @@ Graph::Graph(std::vector<string> vertices, std::vector<std::pair<string, string>
     }
 }
 
-// Graph::Graph(const Graph& other) {
-//    copy(other);
-// }
-// Graph& Graph::operator=(const Graph& other) {
-//     if (this != &other) {
-//         copy(other);
-//     }
-//     return *this;
-// }
+Graph::Graph(const Graph& other) {
+   *this = other;
+}
+Graph& Graph::operator=(const Graph& other) {
+    if (this != &other) {
+        this->~Graph();
+        this->num_vertices = other.num_vertices;
+        for (const AdjacencyList& adjList : other.adjacency_list) {
+            AdjacencyList newList(adjList); // uses rule of 3 for adjlist
+            this->adjacency_list.push_back(newList);
+        }
+    }
+    return *this;
+}
 
-// void Graph::copy(const Graph& other) {
-//     this->num_vertices = other.num_vertices;
-//     for (const AdjacencyList& adjList : other.adjacency_list) {
-//         AdjacencyList newList(adjList); // uses rule of 3 for adjlist
-//         this->adjacency_list.push_back(newList);
-//     }
-// }
-// Graph::~Graph() {
-//     // do nothing, adjlist destructor should handle it
-// }
+Graph::~Graph() {
+    // do nothing, adjlist destructor should handle it
+}
 
 void Graph::print_graph(std::ostream& out) {
     for (auto & adj : adjacency_list) {
@@ -225,7 +221,7 @@ void Graph::insert_into_adjlist(unsigned list_idx, string to_insert) {
     // adjacency_list[list_idx].push_back(to_insert);
     // add to end of linked list
     adjacency_list[list_idx].insert_at_end(to_insert);
-    adjacency_list[list_idx].num_edges += 1;
+    // adjacency_list[list_idx].num_edges += 1;
 }
 
 unsigned Graph::find_adjlist_idx(string to_find) {
@@ -251,7 +247,7 @@ void Graph::add_edge(string source, string destination) {
         AdjacencyList source_list = AdjacencyList();
         source_list.insert_at_end(source);
         source_list.insert_at_end(destination);
-        source_list.num_edges += 1;
+        // source_list.num_edges += 1;
 
         adjacency_list.push_back(source_list);
     }

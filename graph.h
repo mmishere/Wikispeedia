@@ -26,9 +26,9 @@ public:
 
 		AdjacencyList();
 		AdjacencyList(LinkedListNode *head);
-		// ~AdjacencyList();
-		// AdjacencyList(const AdjacencyList& other);
-		// AdjacencyList& operator=(const AdjacencyList& other);
+		~AdjacencyList();
+		AdjacencyList(const AdjacencyList& other);
+		AdjacencyList& operator=(const AdjacencyList& other);
 
 		// void copy(const AdjacencyList& other);
 
@@ -49,9 +49,9 @@ public:
 		*/
 		Graph(std::vector<string> vertices, std::vector<std::pair<string, string>> edges);
 
-		// Graph(const Graph& other);
-		// Graph& operator=(const Graph& other);
-		// ~Graph();
+		Graph(const Graph& other);
+		Graph& operator=(const Graph& other);
+		~Graph();
 
 		void add_edge(string source, string destination);
 		void remove_edge(string source, string destination);
