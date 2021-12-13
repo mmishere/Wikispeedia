@@ -1,8 +1,12 @@
 Our final deliverables are viewable in the `results` folder. We've calculated both the [betweenness centralities](results/centralities.txt) and the [strongly connected components](results/strong_connections.txt), and the results are saved to text files there. Also, users can input their own data, and they can run `./wikispeedia` in order to display  graph information, reprint the centrality data to an output file, print the strongly connected components to a file, and display a path between two nodes if it exists.
 
-We set out to find a general speedrunning strategy for Wikipedia speedruns, wherein a user is given two random articles and has to find a path between them. We also wanted to simulate Wikipedia speedruns by letting users input two articles and finding the shortest path between them.
+We set out to do the following:
+* Find a general speedrunning strategy for Wikipedia speedruns, wherein a user is given two random articles and has to find a path between them.
+* Find and print out the shortest path(s) between two given articles
+* Check if the graph is strongly connected, in case any pair of articles has no path between them.
+* Calculate the betweenness centrality of each node to attempt to find a general strategy.
 
-In order to do this, we tried various traversals and we found extra information like the betweenness centralities and strongly connected components. We were not able to develop a general strategy, but our program can help speedrunners find the shortest path between two nodes. Essentially, this program has become a [TAS](https://en.wikipedia.org/wiki/Tool-assisted_speedrun) tool.
+Of these, we accomplished the last three. We were not able to develop a general strategy, but our program can help speedrunners find the shortest path between two nodes. Essentially, this program has become a [TAS](https://en.wikipedia.org/wiki/Tool-assisted_speedrun) tool.
 
 We did learn some important things about large projects during the course of this. Our algorithm to find betweenness centralities is very inefficient, and because the dataset is so large, this causes real problems. We've learned that in the future, we need to be more picky about what algorithms we use.
 
