@@ -30,6 +30,7 @@ std::vector<string> BFS::findPath(const string & start, const string & end) {
 
     //starting point: distance is 0, no predecessor
     queue.push(start);
+    visited.insert(start);
     //distances[start] = 0;
 
     bool found = false;
@@ -37,22 +38,33 @@ std::vector<string> BFS::findPath(const string & start, const string & end) {
     //search until queue empty
     while (!queue.empty()) {
         //break if found
-        if (queue.front() == end) {
-            found = true;
-            break;
-        }
+        // if (queue.front() == end) {
+        //     found = true;
+        //     break;
+        // }
 
         currentVtx = queue.front();
         queue.pop();
 
         std::vector<string> adjacent = graph_->adjacent(currentVtx);
         for (auto & vtx : adjacent) {
+            
+
             if (visited.find(vtx) == visited.end()) { //if not already found
                 queue.push(vtx);
                 predecessors[vtx] = currentVtx;
+                visited.insert(vtx);
+
+                if (vtx == end) {
+                    found = true;
+                    break;
+                }
             }
         }
-        visited.insert(currentVtx);
+        if (found == true) {
+            break;
+        }
+        // visited.insert(currentVtx);
     }
     
     //return empty vector if not found
