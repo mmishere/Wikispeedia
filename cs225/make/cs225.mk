@@ -27,7 +27,7 @@ DEPFILE_FLAGS = -MMD -MP
 WARNINGS = -pedantic -Wall -Werror -Wfatal-errors -Wextra -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function
 
 # Flags for compile:
-CXXFLAGS += $(CS225) -std=c++14 -stdlib=libc++ -O0 $(WARNINGS) $(DEPFILE_FLAGS) -g -c
+CXXFLAGS += $(CS225) -std=c++14 -stdlib=libc++ -Ofast $(WARNINGS) $(DEPFILE_FLAGS) -g -c
 
 # Flags for linking:
 LDFLAGS += $(CS225) -std=c++14 -stdlib=libc++ -lc++abi

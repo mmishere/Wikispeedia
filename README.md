@@ -7,7 +7,7 @@ See our [Project Proposal](projectProposal.md) for more details.
 
 Check out our [Development Log](devlog.md) to see our weekly progress.
 
-COMING SOON: See our [Results]() and [Presentation]()!
+See our [Results](final_report.md) and [Presentation]()!
 
 ---
 
