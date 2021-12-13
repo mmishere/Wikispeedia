@@ -42,10 +42,10 @@ TEST_CASE("Parsed Graph Has Correct Edges Manual", "[parser]") {
 
     Graph* g = utils::parse_to_graph(testing_vertex_list_path, testing_edge_list_path);
 
-    REQUIRE( g->isAdjacent("first really long article name", "second really long article name") );
-    REQUIRE( g->isAdjacent("second really long article name", "third really long article name") );
-    REQUIRE( g->isAdjacent("third really long article name", "first really long article name") );
-    REQUIRE( g->isAdjacent("third really long article name", "second really long article name") );
+    REQUIRE( g->isAdjacent("first_really_long_article_name", "second_really_long_article_name") );
+    REQUIRE( g->isAdjacent("second_really_long_article_name", "third_really_long_article_name") );
+    REQUIRE( g->isAdjacent("third_really_long_article_name", "first_really_long_article_name") );
+    REQUIRE( g->isAdjacent("third_really_long_article_name", "second_really_long_article_name") );
 }
 
 /*
@@ -115,6 +115,46 @@ TEST_CASE("Centralities Save to File Correctly", "[centrality_saver]") {
             std::pair<std::string, int> p = std::pair<std::string, int>(line.substr(0, split_pos),
                                             stoi(line.substr(split_pos + split_character.length())));
             REQUIRE( p == ordered_centralities[i]);
+            i++;
+        }
+
+        centrality_file.close();
+    } else {
+        std::cout << "File could not be opened! Please check your file path." << std::endl;
+        return;
+    }
+}
+
+TEST_CASE("Parsed Centralities Save to File Correctly", "[centrality_saver]") {
+    std::string centrality_save_path = "sample_centralities_2";
+    std::string testing_vertex_list_path = "data_sample/nodes.txt";
+    std::string testing_edge_list_path = "data_sample/edges.txt";
+    std::string split_character = " ";
+
+    std::vector<std::pair<std::string, int>> ordered_centralities = {
+        {"second_really_long_article_name", 6},
+        {"third_really_long_article_name", 6},
+        {"first_really_long_article_name", 5},
+    };
+
+    // set up graph and save the centralities
+    Graph* g = utils::parse_to_graph(testing_vertex_list_path, testing_edge_list_path);
+    BFS bfs = BFS(g);
+    utils::save_centralities_to_file(centrality_save_path, bfs.centralitiesSorted());
+
+    // check if generated file has correct values in correct order
+    std::fstream centrality_file;
+    centrality_file.open(centrality_save_path, std::ios::in);
+
+    if (centrality_file.is_open()) {
+        std::string line;
+        int i = 0;
+
+        while (getline(centrality_file, line)) {
+            size_t split_pos = line.find(split_character);
+            std::pair<std::string, int> p = std::pair<std::string, int>(line.substr(0, split_pos),
+                                            stoi(line.substr(split_pos + split_character.length())));
+            REQUIRE( p == ordered_centralities[i] );
             i++;
         }
 
